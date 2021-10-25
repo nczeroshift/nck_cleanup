@@ -1,0 +1,266 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup Label="ProjectConfigurations">
+    <ProjectConfiguration Include="Debug|Win32">
+      <Configuration>Debug</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Release|Win32">
+      <Configuration>Release</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Debug|x64">
+      <Configuration>Debug</Configuration>
+      <Platform>x64</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Release|x64">
+      <Configuration>Release</Configuration>
+      <Platform>x64</Platform>
+    </ProjectConfiguration>
+  </ItemGroup>
+  <PropertyGroup Label="Globals">
+    <VCProjectVersion>16.0</VCProjectVersion>
+    <Keyword>Win32Proj</Keyword>
+    <ProjectGuid>{e712ae44-7fd9-4ba5-8e99-d4e445415acb}</ProjectGuid>
+    <RootNamespace>demoapp</RootNamespace>
+    <WindowsTargetPlatformVersion>10.0</WindowsTargetPlatformVersion>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
+    <ConfigurationType>Application</ConfigurationType>
+    <UseDebugLibraries>true</UseDebugLibraries>
+    <PlatformToolset>v142</PlatformToolset>
+    <CharacterSet>MultiByte</CharacterSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="Configuration">
+    <ConfigurationType>Application</ConfigurationType>
+    <UseDebugLibraries>false</UseDebugLibraries>
+    <PlatformToolset>v142</PlatformToolset>
+    <WholeProgramOptimization>true</WholeProgramOptimization>
+    <CharacterSet>Unicode</CharacterSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'" Label="Configuration">
+    <ConfigurationType>Application</ConfigurationType>
+    <UseDebugLibraries>true</UseDebugLibraries>
+    <PlatformToolset>v142</PlatformToolset>
+    <CharacterSet>MultiByte</CharacterSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'" Label="Configuration">
+    <ConfigurationType>Application</ConfigurationType>
+    <UseDebugLibraries>false</UseDebugLibraries>
+    <PlatformToolset>v142</PlatformToolset>
+    <WholeProgramOptimization>true</WholeProgramOptimization>
+    <CharacterSet>Unicode</CharacterSet>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.props" />
+  <ImportGroup Label="ExtensionSettings">
+  </ImportGroup>
+  <ImportGroup Label="Shared">
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <PropertyGroup Label="UserMacros" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <LinkIncremental>true</LinkIncremental>
+    <IncludePath>../../extern/win64/include;$(IncludePath)</IncludePath>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <LinkIncremental>false</LinkIncremental>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+    <LinkIncremental>true</LinkIncremental>
+    <IncludePath>..\..\extern\win64\include;$(IncludePath)</IncludePath>
+    <LibraryPath>..\..\extern\win64\libs\debug\;$(LibraryPath)</LibraryPath>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
+    <LinkIncremental>false</LinkIncremental>
+  </PropertyGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <ClCompile>
+      <WarningLevel>Level3</WarningLevel>
+      <SDLCheck>true</SDLCheck>
+      <PreprocessorDefinitions>WIN32;_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <ConformanceMode>true</ConformanceMode>
+      <AdditionalIncludeDirectories>$(ProjectDir)\..\..\..\source\bxon\;$(ProjectDir)\..\..\..\source\core\;$(ProjectDir)\..\..\..\source\graphics\;$(ProjectDir)\..\..\..\source\audio;$(ProjectDir)\..\..\..\source\gui;$(ProjectDir)\..\..\..\source\math;$(ProjectDir)\..\..\..\source\scene;$(ProjectDir)\..\..\..\source\network;$(ProjectDir)\..\..\..\source\xml;$(ProjectDir)\..\..\..\source\video;$(ProjectDir)\..\..\..\source\io</AdditionalIncludeDirectories>
+      <MultiProcessorCompilation>true</MultiProcessorCompilation>
+      <DisableSpecificWarnings>4250</DisableSpecificWarnings>
+    </ClCompile>
+    <Link>
+      <SubSystem>Console</SubSystem>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+      <AdditionalDependencies>Ws2_32.lib;OpenGL32.Lib;GlU32.Lib;jpeg.lib;winmm.lib;libogg_static.lib;libvorbis_static.lib;libpng16.lib;mfplat.lib;mf.lib;mfreadwrite.lib;mfuuid.lib;shlwapi.lib;zlibstat.lib;%(AdditionalDependencies)</AdditionalDependencies>
+    </Link>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <ClCompile>
+      <WarningLevel>Level3</WarningLevel>
+      <FunctionLevelLinking>true</FunctionLevelLinking>
+      <IntrinsicFunctions>true</IntrinsicFunctions>
+      <SDLCheck>true</SDLCheck>
+      <PreprocessorDefinitions>WIN32;NDEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <ConformanceMode>true</ConformanceMode>
+    </ClCompile>
+    <Link>
+      <SubSystem>Console</SubSystem>
+      <EnableCOMDATFolding>true</EnableCOMDATFolding>
+      <OptimizeReferences>true</OptimizeReferences>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+    </Link>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+    <ClCompile>
+      <WarningLevel>Level3</WarningLevel>
+      <SDLCheck>true</SDLCheck>
+      <PreprocessorDefinitions>_CRT_SECURE_NO_WARNINGS;_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <ConformanceMode>true</ConformanceMode>
+      <AdditionalIncludeDirectories>$(ProjectDir)\..\..\..\source\bxon\;$(ProjectDir)\..\..\..\source\core\;$(ProjectDir)\..\..\..\source\graphics\;$(ProjectDir)\..\..\..\source\audio;$(ProjectDir)\..\..\..\source\gui;$(ProjectDir)\..\..\..\source\math;$(ProjectDir)\..\..\..\source\scene;$(ProjectDir)\..\..\..\source\network;$(ProjectDir)\..\..\..\source\xml;$(ProjectDir)\..\..\..\source\video;$(ProjectDir)\..\..\..\source\io</AdditionalIncludeDirectories>
+      <DisableSpecificWarnings>4250</DisableSpecificWarnings>
+    </ClCompile>
+    <Link>
+      <SubSystem>Windows</SubSystem>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+      <AdditionalDependencies>Ws2_32.lib;OpenGL32.Lib;GlU32.Lib;jpeg.lib;winmm.lib;libogg_static.lib;libvorbis_static.lib;libpng16.lib;mfplat.lib;mf.lib;mfreadwrite.lib;mfuuid.lib;shlwapi.lib;zlibstat.lib;%(AdditionalDependencies)</AdditionalDependencies>
+    </Link>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
+    <ClCompile>
+      <WarningLevel>Level3</WarningLevel>
+      <FunctionLevelLinking>true</FunctionLevelLinking>
+      <IntrinsicFunctions>true</IntrinsicFunctions>
+      <SDLCheck>true</SDLCheck>
+      <PreprocessorDefinitions>NDEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <ConformanceMode>true</ConformanceMode>
+    </ClCompile>
+    <Link>
+      <SubSystem>Console</SubSystem>
+      <EnableCOMDATFolding>true</EnableCOMDATFolding>
+      <OptimizeReferences>true</OptimizeReferences>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+    </Link>
+  </ItemDefinitionGroup>
+  <ItemGroup>
+    <ClInclude Include="..\..\..\source\apps\font_map_tool\Algorithms.h" />
+    <ClInclude Include="..\..\..\source\apps\font_map_tool\App.h" />
+    <ClInclude Include="..\..\..\source\apps\font_map_tool\CharacterBounds.h" />
+    <ClInclude Include="..\..\..\source\apps\font_map_tool\Header.h" />
+    <ClInclude Include="..\..\..\source\apps\font_map_tool\Utils.h" />
+    <ClInclude Include="..\..\..\source\core\nckChronometer.h" />
+    <ClInclude Include="..\..\..\source\core\nckCoreConfig.h" />
+    <ClInclude Include="..\..\..\source\core\nckDataIO.h" />
+    <ClInclude Include="..\..\..\source\core\nckDate.h" />
+    <ClInclude Include="..\..\..\source\core\nckException.h" />
+    <ClInclude Include="..\..\..\source\core\nckImage.h" />
+    <ClInclude Include="..\..\..\source\core\nckPoint.h" />
+    <ClInclude Include="..\..\..\source\core\nckQueueBuffer.h" />
+    <ClInclude Include="..\..\..\source\core\nckSharedPtr.h" />
+    <ClInclude Include="..\..\..\source\core\nckThread.h" />
+    <ClInclude Include="..\..\..\source\core\nckUtils.h" />
+    <ClInclude Include="..\..\..\source\core\nckWindow.h" />
+    <ClInclude Include="..\..\..\source\core\win32\nckWindow_win32.h" />
+    <ClInclude Include="..\..\..\source\core\win32\resource.h" />
+    <ClInclude Include="..\..\..\source\graphics\glx2\nckExtensions_glx2.h" />
+    <ClInclude Include="..\..\..\source\graphics\glx2\nckGraphics_glx2.h" />
+    <ClInclude Include="..\..\..\source\graphics\nckGraphics.h" />
+    <ClInclude Include="..\..\..\source\graphics\nckGraphicsConfig.h" />
+    <ClInclude Include="..\..\..\source\graphics\nckGraphicsMath.h" />
+    <ClInclude Include="..\..\..\source\graphics\nckGraphicsUtils.h" />
+    <ClInclude Include="..\..\..\source\graphics\nckResourceProxy.h" />
+    <ClInclude Include="..\..\..\source\graphics\nckShaderParser.h" />
+    <ClInclude Include="..\..\..\source\graphics\nckTextureCache.h" />
+    <ClInclude Include="..\..\..\source\graphics\nckVProfile.h" />
+    <ClInclude Include="..\..\..\source\gui\nckFont.h" />
+    <ClInclude Include="..\..\..\source\gui\nckGuiConfig.h" />
+    <ClInclude Include="..\..\..\source\gui\nckShapeRenderer.h" />
+    <ClInclude Include="..\..\..\source\gui\nckTileMap.h" />
+    <ClInclude Include="..\..\..\source\gui\nckWidget.h" />
+    <ClInclude Include="..\..\..\source\gui\nckWidgetRenderer.h" />
+    <ClInclude Include="..\..\..\source\math\nckBoundBox.h" />
+    <ClInclude Include="..\..\..\source\math\nckColor4.h" />
+    <ClInclude Include="..\..\..\source\math\nckFrustum.h" />
+    <ClInclude Include="..\..\..\source\math\nckLine.h" />
+    <ClInclude Include="..\..\..\source\math\nckMat44.h" />
+    <ClInclude Include="..\..\..\source\math\nckMathConfig.h" />
+    <ClInclude Include="..\..\..\source\math\nckMathUtils.h" />
+    <ClInclude Include="..\..\..\source\math\nckPlane.h" />
+    <ClInclude Include="..\..\..\source\math\nckPolynomialSolver.h" />
+    <ClInclude Include="..\..\..\source\math\nckQuadtree.h" />
+    <ClInclude Include="..\..\..\source\math\nckQuat.h" />
+    <ClInclude Include="..\..\..\source\math\nckRange.h" />
+    <ClInclude Include="..\..\..\source\math\nckStatistics.h" />
+    <ClInclude Include="..\..\..\source\math\nckTimeline.h" />
+    <ClInclude Include="..\..\..\source\math\nckTransform.h" />
+    <ClInclude Include="..\..\..\source\math\nckTriangle.h" />
+    <ClInclude Include="..\..\..\source\math\nckVec2.h" />
+    <ClInclude Include="..\..\..\source\math\nckVec3.h" />
+    <ClInclude Include="..\..\..\source\math\nckVec4.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <ResourceCompile Include="..\..\..\source\core\win32\resources.rc" />
+  </ItemGroup>
+  <ItemGroup>
+    <Image Include="..\..\..\source\core\win32\appicon.ico" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="..\..\..\source\apps\font_map_tool\Algorithms.cpp" />
+    <ClCompile Include="..\..\..\source\apps\font_map_tool\App.cpp" />
+    <ClCompile Include="..\..\..\source\apps\font_map_tool\CharacterBounds.cpp" />
+    <ClCompile Include="..\..\..\source\apps\font_map_tool\main.cpp" />
+    <ClCompile Include="..\..\..\source\apps\font_map_tool\Utils.cpp" />
+    <ClCompile Include="..\..\..\source\core\nckChronometer.cpp" />
+    <ClCompile Include="..\..\..\source\core\nckDataIO.cpp" />
+    <ClCompile Include="..\..\..\source\core\nckDate.cpp" />
+    <ClCompile Include="..\..\..\source\core\nckException.cpp" />
+    <ClCompile Include="..\..\..\source\core\nckImage.cpp" />
+    <ClCompile Include="..\..\..\source\core\nckPoint.cpp" />
+    <ClCompile Include="..\..\..\source\core\nckQueueBuffer.cpp" />
+    <ClCompile Include="..\..\..\source\core\nckThread.cpp" />
+    <ClCompile Include="..\..\..\source\core\nckUtils.cpp" />
+    <ClCompile Include="..\..\..\source\core\nckWindow.cpp" />
+    <ClCompile Include="..\..\..\source\core\win32\nckWindow_win32.cpp" />
+    <ClCompile Include="..\..\..\source\graphics\glx2\nckExtensions_glx2.cpp" />
+    <ClCompile Include="..\..\..\source\graphics\glx2\nckGraphics_glx2.cpp" />
+    <ClCompile Include="..\..\..\source\graphics\glx2\nckMesh_glx2.cpp" />
+    <ClCompile Include="..\..\..\source\graphics\glx2\nckProxy_glx2.cpp" />
+    <ClCompile Include="..\..\..\source\graphics\glx2\nckShader_glx2.cpp" />
+    <ClCompile Include="..\..\..\source\graphics\glx2\nckTexture_glx2.cpp" />
+    <ClCompile Include="..\..\..\source\graphics\nckGraphics.cpp" />
+    <ClCompile Include="..\..\..\source\graphics\nckGraphicsMath.cpp" />
+    <ClCompile Include="..\..\..\source\graphics\nckGraphicsUtils.cpp" />
+    <ClCompile Include="..\..\..\source\graphics\nckShaderParser.cpp" />
+    <ClCompile Include="..\..\..\source\graphics\nckTextureCache.cpp" />
+    <ClCompile Include="..\..\..\source\gui\nckFont.cpp" />
+    <ClCompile Include="..\..\..\source\gui\nckShapeRenderer.cpp" />
+    <ClCompile Include="..\..\..\source\gui\nckTileMap.cpp" />
+    <ClCompile Include="..\..\..\source\gui\nckWidget.cpp" />
+    <ClCompile Include="..\..\..\source\gui\nckWidgetRenderer.cpp" />
+    <ClCompile Include="..\..\..\source\math\nckBoundBox.cpp" />
+    <ClCompile Include="..\..\..\source\math\nckColor4.cpp" />
+    <ClCompile Include="..\..\..\source\math\nckFrustum.cpp" />
+    <ClCompile Include="..\..\..\source\math\nckLine.cpp" />
+    <ClCompile Include="..\..\..\source\math\nckMat44.cpp" />
+    <ClCompile Include="..\..\..\source\math\nckMathUtils.cpp" />
+    <ClCompile Include="..\..\..\source\math\nckPlane.cpp" />
+    <ClCompile Include="..\..\..\source\math\nckPolynomialSolver.cpp" />
+    <ClCompile Include="..\..\..\source\math\nckQuadtree.cpp" />
+    <ClCompile Include="..\..\..\source\math\nckQuat.cpp" />
+    <ClCompile Include="..\..\..\source\math\nckStatistics.cpp" />
+    <ClCompile Include="..\..\..\source\math\nckTransform.cpp" />
+    <ClCompile Include="..\..\..\source\math\nckTriangle.cpp" />
+    <ClCompile Include="..\..\..\source\math\nckVec2.cpp" />
+    <ClCompile Include="..\..\..\source\math\nckVec3.cpp" />
+    <ClCompile Include="..\..\..\source\math\nckVec4.cpp" />
+  </ItemGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
+  <ImportGroup Label="ExtensionTargets">
+  </ImportGroup>
+</Project>

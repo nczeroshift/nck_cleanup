@@ -1,0 +1,35 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.31313.79
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "demo_app", "demo_app\demo_app.vcxproj", "{E712AE44-7FD9-4BA5-8E99-D4E445415ACB}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|ARM = Debug|ARM
+		Debug|Win32 = Debug|Win32
+		Debug|x64 = Debug|x64
+		Release|ARM = Release|ARM
+		Release|Win32 = Release|Win32
+		Release|x64 = Release|x64
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{E712AE44-7FD9-4BA5-8E99-D4E445415ACB}.Debug|ARM.ActiveCfg = Debug|Win32
+		{E712AE44-7FD9-4BA5-8E99-D4E445415ACB}.Debug|Win32.ActiveCfg = Debug|Win32
+		{E712AE44-7FD9-4BA5-8E99-D4E445415ACB}.Debug|Win32.Build.0 = Debug|Win32
+		{E712AE44-7FD9-4BA5-8E99-D4E445415ACB}.Debug|x64.ActiveCfg = Debug|x64
+		{E712AE44-7FD9-4BA5-8E99-D4E445415ACB}.Debug|x64.Build.0 = Debug|x64
+		{E712AE44-7FD9-4BA5-8E99-D4E445415ACB}.Release|ARM.ActiveCfg = Release|Win32
+		{E712AE44-7FD9-4BA5-8E99-D4E445415ACB}.Release|Win32.ActiveCfg = Release|Win32
+		{E712AE44-7FD9-4BA5-8E99-D4E445415ACB}.Release|Win32.Build.0 = Release|Win32
+		{E712AE44-7FD9-4BA5-8E99-D4E445415ACB}.Release|x64.ActiveCfg = Release|x64
+		{E712AE44-7FD9-4BA5-8E99-D4E445415ACB}.Release|x64.Build.0 = Release|x64
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {68118325-BABB-4E2C-B22B-2F028F8AC0AA}
+	EndGlobalSection
+EndGlobal
