@@ -1,0 +1,367 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="Source Files">
+      <UniqueIdentifier>{4FC737F1-C7A5-4376-A066-2A32D752A2FF}</UniqueIdentifier>
+      <Extensions>cpp;c;cc;cxx;c++;cppm;ixx;def;odl;idl;hpj;bat;asm;asmx</Extensions>
+    </Filter>
+    <Filter Include="Header Files">
+      <UniqueIdentifier>{93995380-89BD-4b04-88EB-625FBE52EBFB}</UniqueIdentifier>
+      <Extensions>h;hh;hpp;hxx;h++;hm;inl;inc;ipp;xsd</Extensions>
+    </Filter>
+    <Filter Include="Resource Files">
+      <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
+      <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
+    </Filter>
+    <Filter Include="Source Files\toolkit">
+      <UniqueIdentifier>{45fba46e-b3c5-4c8d-9b4f-b6430f01d40d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\toolkit\core">
+      <UniqueIdentifier>{6fbd465c-beab-4cd5-baee-2e5b9d0438cc}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\toolkit\core\win32">
+      <UniqueIdentifier>{d00a13eb-149b-4a02-82e3-bb8314c670ea}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\toolkit\graphics">
+      <UniqueIdentifier>{074881d0-3218-4c25-b321-94fbfc5d6b71}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\toolkit\graphics\glx2">
+      <UniqueIdentifier>{6a7863c1-34b4-4afe-aa3a-d8dcc51f5e38}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\toolkit\graphics\math">
+      <UniqueIdentifier>{01a877af-02a3-424e-b9bc-8d67916a5e14}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\toolkit\graphics\utils">
+      <UniqueIdentifier>{385e1b05-99ef-44f7-b59b-c716d5de3bca}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\toolkit\gui">
+      <UniqueIdentifier>{ea463d36-be7f-4dbd-b96d-9b620e48df37}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\toolkit\math">
+      <UniqueIdentifier>{9a6a8790-c672-4df1-a7f6-898c37c06ba9}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\fontmap">
+      <UniqueIdentifier>{1c772009-fa44-4b57-9b5f-3de7b116f1c9}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="..\..\..\source\core\win32\resource.h">
+      <Filter>Resource Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\source\core\nckChronometer.h">
+      <Filter>Source Files\toolkit\core</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\source\core\nckCoreConfig.h">
+      <Filter>Source Files\toolkit\core</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\source\core\nckDataIO.h">
+      <Filter>Source Files\toolkit\core</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\source\core\nckDate.h">
+      <Filter>Source Files\toolkit\core</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\source\core\nckException.h">
+      <Filter>Source Files\toolkit\core</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\source\core\nckImage.h">
+      <Filter>Source Files\toolkit\core</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\source\core\nckPoint.h">
+      <Filter>Source Files\toolkit\core</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\source\core\nckQueueBuffer.h">
+      <Filter>Source Files\toolkit\core</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\source\core\nckSharedPtr.h">
+      <Filter>Source Files\toolkit\core</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\source\core\nckThread.h">
+      <Filter>Source Files\toolkit\core</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\source\core\nckUtils.h">
+      <Filter>Source Files\toolkit\core</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\source\core\nckWindow.h">
+      <Filter>Source Files\toolkit\core</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\source\core\win32\nckWindow_win32.h">
+      <Filter>Source Files\toolkit\core\win32</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\source\graphics\glx2\nckExtensions_glx2.h">
+      <Filter>Source Files\toolkit\graphics\glx2</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\source\graphics\glx2\nckGraphics_glx2.h">
+      <Filter>Source Files\toolkit\graphics\glx2</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\source\graphics\nckGraphicsMath.h">
+      <Filter>Source Files\toolkit\graphics\math</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\source\graphics\nckGraphics.h">
+      <Filter>Source Files\toolkit\graphics</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\source\graphics\nckGraphicsConfig.h">
+      <Filter>Source Files\toolkit\graphics</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\source\graphics\nckResourceProxy.h">
+      <Filter>Source Files\toolkit\graphics</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\source\graphics\nckShaderParser.h">
+      <Filter>Source Files\toolkit\graphics</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\source\graphics\nckTextureCache.h">
+      <Filter>Source Files\toolkit\graphics</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\source\graphics\nckVProfile.h">
+      <Filter>Source Files\toolkit\graphics</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\source\graphics\nckGraphicsUtils.h">
+      <Filter>Source Files\toolkit\graphics\utils</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\source\gui\nckFont.h">
+      <Filter>Source Files\toolkit\gui</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\source\gui\nckGuiConfig.h">
+      <Filter>Source Files\toolkit\gui</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\source\gui\nckShapeRenderer.h">
+      <Filter>Source Files\toolkit\gui</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\source\gui\nckTileMap.h">
+      <Filter>Source Files\toolkit\gui</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\source\gui\nckWidget.h">
+      <Filter>Source Files\toolkit\gui</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\source\gui\nckWidgetRenderer.h">
+      <Filter>Source Files\toolkit\gui</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\source\math\nckRange.h">
+      <Filter>Source Files\toolkit\math</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\source\math\nckStatistics.h">
+      <Filter>Source Files\toolkit\math</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\source\math\nckTimeline.h">
+      <Filter>Source Files\toolkit\math</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\source\math\nckTransform.h">
+      <Filter>Source Files\toolkit\math</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\source\math\nckTriangle.h">
+      <Filter>Source Files\toolkit\math</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\source\math\nckVec2.h">
+      <Filter>Source Files\toolkit\math</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\source\math\nckVec3.h">
+      <Filter>Source Files\toolkit\math</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\source\math\nckVec4.h">
+      <Filter>Source Files\toolkit\math</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\source\math\nckBoundBox.h">
+      <Filter>Source Files\toolkit\math</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\source\math\nckColor4.h">
+      <Filter>Source Files\toolkit\math</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\source\math\nckFrustum.h">
+      <Filter>Source Files\toolkit\math</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\source\math\nckLine.h">
+      <Filter>Source Files\toolkit\math</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\source\math\nckMat44.h">
+      <Filter>Source Files\toolkit\math</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\source\math\nckMathConfig.h">
+      <Filter>Source Files\toolkit\math</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\source\math\nckMathUtils.h">
+      <Filter>Source Files\toolkit\math</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\source\math\nckPlane.h">
+      <Filter>Source Files\toolkit\math</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\source\math\nckPolynomialSolver.h">
+      <Filter>Source Files\toolkit\math</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\source\math\nckQuadtree.h">
+      <Filter>Source Files\toolkit\math</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\source\math\nckQuat.h">
+      <Filter>Source Files\toolkit\math</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\source\apps\font_map_tool\Algorithms.h">
+      <Filter>Source Files\fontmap</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\source\apps\font_map_tool\App.h">
+      <Filter>Source Files\fontmap</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\source\apps\font_map_tool\CharacterBounds.h">
+      <Filter>Source Files\fontmap</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\source\apps\font_map_tool\Header.h">
+      <Filter>Source Files\fontmap</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\source\apps\font_map_tool\Utils.h">
+      <Filter>Source Files\fontmap</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <ResourceCompile Include="..\..\..\source\core\win32\resources.rc">
+      <Filter>Resource Files</Filter>
+    </ResourceCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <Image Include="..\..\..\source\core\win32\appicon.ico">
+      <Filter>Resource Files</Filter>
+    </Image>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="..\..\..\source\core\nckChronometer.cpp">
+      <Filter>Source Files\toolkit\core</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\source\core\nckDataIO.cpp">
+      <Filter>Source Files\toolkit\core</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\source\core\nckDate.cpp">
+      <Filter>Source Files\toolkit\core</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\source\core\nckException.cpp">
+      <Filter>Source Files\toolkit\core</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\source\core\nckImage.cpp">
+      <Filter>Source Files\toolkit\core</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\source\core\nckPoint.cpp">
+      <Filter>Source Files\toolkit\core</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\source\core\nckQueueBuffer.cpp">
+      <Filter>Source Files\toolkit\core</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\source\core\nckThread.cpp">
+      <Filter>Source Files\toolkit\core</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\source\core\nckUtils.cpp">
+      <Filter>Source Files\toolkit\core</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\source\core\nckWindow.cpp">
+      <Filter>Source Files\toolkit\core</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\source\core\win32\nckWindow_win32.cpp">
+      <Filter>Source Files\toolkit\core\win32</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\source\graphics\glx2\nckExtensions_glx2.cpp">
+      <Filter>Source Files\toolkit\graphics\glx2</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\source\graphics\glx2\nckGraphics_glx2.cpp">
+      <Filter>Source Files\toolkit\graphics\glx2</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\source\graphics\glx2\nckMesh_glx2.cpp">
+      <Filter>Source Files\toolkit\graphics\glx2</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\source\graphics\glx2\nckProxy_glx2.cpp">
+      <Filter>Source Files\toolkit\graphics\glx2</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\source\graphics\glx2\nckShader_glx2.cpp">
+      <Filter>Source Files\toolkit\graphics\glx2</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\source\graphics\glx2\nckTexture_glx2.cpp">
+      <Filter>Source Files\toolkit\graphics\glx2</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\source\graphics\nckGraphicsMath.cpp">
+      <Filter>Source Files\toolkit\graphics\math</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\source\graphics\nckGraphics.cpp">
+      <Filter>Source Files\toolkit\graphics</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\source\graphics\nckShaderParser.cpp">
+      <Filter>Source Files\toolkit\graphics</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\source\graphics\nckTextureCache.cpp">
+      <Filter>Source Files\toolkit\graphics</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\source\graphics\nckGraphicsUtils.cpp">
+      <Filter>Source Files\toolkit\graphics\utils</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\source\gui\nckFont.cpp">
+      <Filter>Source Files\toolkit\gui</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\source\gui\nckShapeRenderer.cpp">
+      <Filter>Source Files\toolkit\gui</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\source\gui\nckTileMap.cpp">
+      <Filter>Source Files\toolkit\gui</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\source\gui\nckWidget.cpp">
+      <Filter>Source Files\toolkit\gui</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\source\gui\nckWidgetRenderer.cpp">
+      <Filter>Source Files\toolkit\gui</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\source\math\nckStatistics.cpp">
+      <Filter>Source Files\toolkit\math</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\source\math\nckTransform.cpp">
+      <Filter>Source Files\toolkit\math</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\source\math\nckTriangle.cpp">
+      <Filter>Source Files\toolkit\math</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\source\math\nckVec2.cpp">
+      <Filter>Source Files\toolkit\math</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\source\math\nckVec3.cpp">
+      <Filter>Source Files\toolkit\math</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\source\math\nckVec4.cpp">
+      <Filter>Source Files\toolkit\math</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\source\math\nckBoundBox.cpp">
+      <Filter>Source Files\toolkit\math</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\source\math\nckColor4.cpp">
+      <Filter>Source Files\toolkit\math</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\source\math\nckFrustum.cpp">
+      <Filter>Source Files\toolkit\math</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\source\math\nckLine.cpp">
+      <Filter>Source Files\toolkit\math</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\source\math\nckMat44.cpp">
+      <Filter>Source Files\toolkit\math</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\source\math\nckMathUtils.cpp">
+      <Filter>Source Files\toolkit\math</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\source\math\nckPlane.cpp">
+      <Filter>Source Files\toolkit\math</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\source\math\nckPolynomialSolver.cpp">
+      <Filter>Source Files\toolkit\math</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\source\math\nckQuadtree.cpp">
+      <Filter>Source Files\toolkit\math</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\source\math\nckQuat.cpp">
+      <Filter>Source Files\toolkit\math</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\source\apps\font_map_tool\Algorithms.cpp">
+      <Filter>Source Files\fontmap</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\source\apps\font_map_tool\App.cpp">
+      <Filter>Source Files\fontmap</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\source\apps\font_map_tool\CharacterBounds.cpp">
+      <Filter>Source Files\fontmap</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\source\apps\font_map_tool\main.cpp">
+      <Filter>Source Files\fontmap</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\source\apps\font_map_tool\Utils.cpp">
+      <Filter>Source Files\fontmap</Filter>
+    </ClCompile>
+  </ItemGroup>
+</Project>

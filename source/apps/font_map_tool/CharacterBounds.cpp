@@ -79,7 +79,7 @@ void DetectCharactersBounds(Core::Image * src_img, int margin, std::list<Charact
 		for (int x = 0; x < src_img->GetWidth(); x++)
 		{
 			uint8_t * cData = &src_img->GetData()[(y * src_img->GetWidth() + x) * tmp_src_bbp];
-			bool hasColor = cData[3] > 10;
+			bool hasColor = cData[3] > 1;
 
 			if (hasColor) {
 				bool didFind = false;
@@ -116,8 +116,8 @@ void SaveCharactersMap(int dst_img_width,
 	int spaceWidth, 
 	int charHeight,
 	int margin,
-	std::list<CharacterBounds> * in
-) {
+	std::list<CharacterBounds> * in) 
+ {
 	Core::FileWriter * fw = Core::FileWriter::Open(path);
 
 	if (fw == NULL)
@@ -282,4 +282,90 @@ void RenderTextExt(Graph::Device * dev,
 			//offset_x += extraMargin;
 		}
 	}
+}
+
+
+
+
+void drawRectXYBounds(Graph::Device* dev, float x, float y, float width, const CharacterBounds& bounds, float srcSize) {
+    float x2 = x + width;
+
+    int chW = bounds.GetMaxX() - bounds.GetMinX();
+    int chH = bounds.GetMaxY() - bounds.GetMinY();
+
+    float scale = width / chW;
+
+    float scaledMarginX = 0;// scale;
+    float scaledMarginY = 0;// scale;
+
+    float y2 = y + chH * width / (float)chW;
+
+    dev->Begin(Graph::PRIMITIVE_QUADS);
+
+    float u0 = (bounds.GetMinX()) / srcSize;
+    float u1 = (bounds.GetMaxX()) / srcSize;
+
+    float v0 = (bounds.GetMinY()) / srcSize;
+    float v1 = (bounds.GetMaxY()) / srcSize;
+
+    dev->TexCoord(u0, v0);
+    dev->Vertex(x, y, 0);
+
+    dev->TexCoord(u0, v1);
+    dev->Vertex(x, y2, 0);
+
+    dev->TexCoord(u1, v1);
+    dev->Vertex(x2, y2, 0);
+
+    dev->TexCoord(u1, v0);
+    dev->Vertex(x2, y, 0);
+
+    dev->End();
+}
+
+
+
+void drawRectXYBounds2(Graph::Device* dev, float x, float y, float width, const CharacterBounds& bounds, float srcSize) {
+    float u0 = (bounds.GetMinX()) / srcSize;
+    float u1 = (bounds.GetMaxX()) / srcSize;
+
+    float v0 = (bounds.GetMinY()) / srcSize;
+    float v1 = (bounds.GetMaxY()) / srcSize;
+
+    float uW = bounds.GetMaxX() - bounds.GetMinX();
+    float vH = bounds.GetMaxY() - bounds.GetMinY();
+
+    float extra = 2;
+
+    float x2 = x + width + extra * width / uW;
+
+    float scale = width / uW;
+
+    float scaledMarginX = 0;// scale;
+    float scaledMarginY = 0;// scale;
+
+    float height = vH * width / (float)uW;
+    float y2 = y + height + extra * height / vH;
+
+    dev->Begin(Graph::PRIMITIVE_QUADS);
+
+    u0 = (bounds.GetMinX()) / srcSize;
+    u1 = (bounds.GetMaxX() + extra) / srcSize;
+
+    v0 = (bounds.GetMinY()) / srcSize;
+    v1 = (bounds.GetMaxY() + extra) / srcSize;
+
+    dev->TexCoord(u0, v0);
+    dev->Vertex(x, y, 0);
+
+    dev->TexCoord(u0, v1);
+    dev->Vertex(x, y2, 0);
+
+    dev->TexCoord(u1, v1);
+    dev->Vertex(x2, y2, 0);
+
+    dev->TexCoord(u1, v0);
+    dev->Vertex(x2, y, 0);
+
+    dev->End();
 }

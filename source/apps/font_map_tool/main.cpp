@@ -4,7 +4,7 @@
 
 void Core::Application_Main(const std::vector<std::string> & CmdLine)
 {
-	Core::Window * wnd = Core::CreateWindow("Bitmap Font Tool", 600, 800, 
+	Core::Window * wnd = Core::CreateWindow("Bitmap Font Tool", 1024, 800, 
     Core::WINDOW_RESTORE_BUTTON | Core::WINDOW_MINIMIZED_BUTTON | Core::WINDOW_MAXIMIZED_BUTTON);
 
 	App * app = new App(wnd);

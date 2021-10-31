@@ -74,4 +74,7 @@ void RenderTextExt(Graph::Device * dev,
 	int extraMargin,
 	const std::map<int, CharacterBounds> & mapped_characters);
 
+void drawRectXYBounds(Graph::Device* dev, float x, float y, float width, const CharacterBounds& bounds, float srcSize);
+void drawRectXYBounds2(Graph::Device* dev, float x, float y, float width, const CharacterBounds& bounds, float srcSize);
+
 #endif

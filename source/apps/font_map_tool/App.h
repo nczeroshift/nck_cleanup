@@ -65,6 +65,9 @@ private:
     Core::Point m_MouseOffset;
     Core::Point m_MouseDownStart;
     Core::Point m_Position;
+
+    Core::Point m_TextPosition;
+    float m_TextScale;
 public:
 
 	App(Core::Window * window);

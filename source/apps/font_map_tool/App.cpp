@@ -6,90 +6,6 @@
 #include "Algorithms.h"
 
 
-void drawRectXYBounds(Graph::Device * dev, float x, float y, float width, const CharacterBounds & bounds, float srcSize) {
-	float x2 = x + width;
-	
-	int chW = bounds.GetMaxX() - bounds.GetMinX();
-	int chH = bounds.GetMaxY() - bounds.GetMinY();
-
-	float scale = width / chW;
-
-	float scaledMarginX = 0;// scale;
-	float scaledMarginY = 0;// scale;
-	
-	float y2 = y + chH * width / (float)chW;
-
-	dev->Begin(Graph::PRIMITIVE_QUADS);
-
-	float u0 = (bounds.GetMinX()) / srcSize;
-	float u1 = (bounds.GetMaxX()) / srcSize;
-
-	float v0 = (bounds.GetMinY()) / srcSize;
-	float v1 = (bounds.GetMaxY()) / srcSize;
-
-	dev->TexCoord(u0, v0);
-	dev->Vertex(x, y, 0);
-	
-	dev->TexCoord(u0, v1);
-	dev->Vertex(x, y2, 0);
-	
-	dev->TexCoord(u1, v1);
-	dev->Vertex(x2, y2, 0);
-	
-	dev->TexCoord(u1, v0);
-	dev->Vertex(x2, y, 0);
-
-	dev->End();
-}
-
-
-
-void drawRectXYBounds2(Graph::Device * dev, float x, float y, float width, const CharacterBounds & bounds, float srcSize) {
-	float u0 = (bounds.GetMinX()) / srcSize;
-	float u1 = (bounds.GetMaxX()) / srcSize;
-
-	float v0 = (bounds.GetMinY()) / srcSize;
-	float v1 = (bounds.GetMaxY()) / srcSize;
-
-	float uW = bounds.GetMaxX() - bounds.GetMinX();
-	float vH = bounds.GetMaxY() - bounds.GetMinY();
-	
-	float extra = 2;
-
-	float x2 = x + width + extra * width / uW;
-
-	float scale = width / uW;
-
-	float scaledMarginX = 0;// scale;
-	float scaledMarginY = 0;// scale;
-
-	float height = vH * width / (float)uW;
-	float y2 = y + height + extra * height / vH;
-
-	dev->Begin(Graph::PRIMITIVE_QUADS);
-		
-	u0 = (bounds.GetMinX()) / srcSize;
-	u1 = (bounds.GetMaxX()+extra) / srcSize;
-
-	v0 = (bounds.GetMinY()) / srcSize;
-	v1 = (bounds.GetMaxY()+ extra) / srcSize;
-
-	dev->TexCoord(u0, v0);
-	dev->Vertex(x, y, 0);
-
-	dev->TexCoord(u0, v1);
-	dev->Vertex(x, y2, 0);
-
-	dev->TexCoord(u1, v1);
-	dev->Vertex(x2, y2, 0);
-
-	dev->TexCoord(u1, v0);
-	dev->Vertex(x2, y, 0);
-
-	dev->End();
-}
-
-
 
 
 App::App(Core::Window * window) {
@@ -123,7 +39,9 @@ App::App(Core::Window * window) {
 	m_SpaceWidth = 11;
 	m_Monospaced = false;
 	m_ExtraMargin = 0;
-    m_Scale += 1.0;
+    m_Scale = 1.0;
+
+    m_TextScale = 1.0;
 }
 
 App::~App() {
@@ -266,8 +184,9 @@ void App::Run() {
 
 		src_img_tex = dynamic_cast<Graph::Texture2D*>(dev->LoadTexture(src_img_path));
 		src_img_tex->SetAdressMode(Graph::ADRESS_CLAMP);
-		src_img_tex->SetFilter(Graph::FILTER_MAGNIFICATION, Graph::FILTER_NEAREST);
-		src_img_tex->SetFilter(Graph::FILTER_MINIFICATION, Graph::FILTER_NEAREST);
+		src_img_tex->SetFilter(Graph::FILTER_MAGNIFICATION, Graph::FILTER_LINEAR);
+		src_img_tex->SetFilter(Graph::FILTER_MINIFICATION, Graph::FILTER_LINEAR);
+        src_img_tex->SetFilter(Graph::FILTER_MIPMAPPING, Graph::FILTER_NEAREST);
 
 		Core::DebugLog("Detecting characters...\n");
 		DetectCharactersBounds(src_img, detect_margin, &characters);
@@ -292,13 +211,16 @@ void App::Run() {
 		else
 			m_UpdateCount--;
 
+        float wnd_h = wnd->GetHeight() - 200;
+        float wnd_w = wnd->GetWidth();
+
 		const Core::Point cursor = wnd->GetMousePosition();
-		dev->Viewport(0, 0, wnd->GetWidth(), wnd->GetHeight());
+		dev->Viewport(0, 0, wnd->GetWidth(), wnd_h);
 
 		dev->Clear();
 
 		dev->MatrixMode(Graph::MATRIX_PROJECTION); dev->Identity();
-		dev->Ortho2D((float)wnd->GetWidth(), (float)wnd->GetHeight());
+		dev->Ortho2D((float)wnd->GetWidth(), (float)wnd->GetHeight()-200);
 
 		dev->MatrixMode(Graph::MATRIX_VIEW); dev->Identity();
 		dev->MatrixMode(Graph::MATRIX_MODEL); dev->Identity();
@@ -307,6 +229,9 @@ void App::Run() {
 		dev->Enable(Graph::STATE_BLEND);
 		dev->BlendFunc(Graph::BLEND_SRC_ALPHA, Graph::BLEND_INV_SRC_ALPHA);
 
+        src_img_tex->SetFilter(Graph::FILTER_MAGNIFICATION, Graph::FILTER_NEAREST);
+        src_img_tex->SetFilter(Graph::FILTER_MINIFICATION, Graph::FILTER_NEAREST);
+        src_img_tex->SetFilter(Graph::FILTER_MIPMAPPING, Graph::FILTER_NEAREST);
 
 		RenderGraphics(Math::Vec2(m_Position.GetX() + m_MouseOffset.GetX(), m_Position.GetY() + m_MouseOffset.GetY()),cursor, m_Scale);//Math::Vec2(
 			//wnd->GetWidth() / 2 - scale * src_img->GetWidth() / 2,
@@ -324,14 +249,36 @@ void App::Run() {
 			drawRectXY(dev, x - 1, y - 10, x + 2, y + 10);
 		}
 
+        renderViewportBounds(dev, wnd->GetWidth(), wnd->GetHeight() - 200);
 
-		dev->Color(255, 255, 255, 255);
-		dev->FillMode(Graph::FILL_SOLID);
+        dev->Viewport(0, wnd->GetHeight()-200, wnd->GetWidth(),200);
 
-		// Um Pangrama
-		RenderText(10, 10, 16, "Veja o extravagante salto da raposa sobre o cachorro que dorme feliz!"
-			"áéíóúàèìòù*+_-;,:.-~^1234567890|\\!\"#$%&/(){}[]='?»«><`´"
-			"dev->Vertex(ox, oy + c_size / aspect, 0);");
+        dev->MatrixMode(Graph::MATRIX_PROJECTION); dev->Identity();
+        dev->Ortho2D(wnd->GetWidth(),200);
+
+        dev->MatrixMode(Graph::MATRIX_VIEW); dev->Identity();
+        dev->MatrixMode(Graph::MATRIX_MODEL); dev->Identity();
+        dev->FillMode(Graph::FILL_SOLID);
+        dev->Enable(Graph::STATE_BLEND);
+        dev->BlendFunc(Graph::BLEND_SRC_ALPHA, Graph::BLEND_INV_SRC_ALPHA);
+		
+      
+        dev->Color(255, 255, 255, 255);
+        dev->PushMatrix();
+        dev->Translate(m_TextPosition.GetX(), m_TextPosition.GetY(), 0);
+        dev->Scale(m_TextScale, m_TextScale, 1.0);
+
+        src_img_tex->SetFilter(Graph::FILTER_MAGNIFICATION, Graph::FILTER_LINEAR);
+        src_img_tex->SetFilter(Graph::FILTER_MINIFICATION, Graph::FILTER_LINEAR);
+        src_img_tex->SetFilter(Graph::FILTER_MIPMAPPING, Graph::FILTER_LINEAR);
+
+        RenderText(10, 32, 16, "Veja o extravagante salto da raposa sobre o cachorro que dorme feliz!"
+            "áéíóúàèìòù*+_-;,:.-~^1234567890|\\!\"#$%&/(){}[]='?»«><`´"
+            "dev->Vertex(ox, oy + c_size / aspect, 0);");
+
+        dev->PopMatrix();
+
+        renderViewportBounds(dev, wnd->GetWidth(), 200);
 
 		dev->PresentAll();
 	}
@@ -435,7 +382,7 @@ void App::RenderGraphics(const Math::Vec2 & position, const Core::Point & cur, f
 	characters_mutex->Unlock();
 	dev->PopMatrix();
 
-	if (selection_a != characters.end()) {
+	/*if (selection_a != characters.end()) {
 		dev->FillMode(Graph::FILL_SOLID);
 		dev->Color(255, 255, 255);
 		src_img_tex->Enable();
@@ -447,10 +394,8 @@ void App::RenderGraphics(const Math::Vec2 & position, const Core::Point & cur, f
 		drawRectXYBounds(dev, 10, wnd->GetHeight() - 128, 64, *selection_a, src_img_tex->GetWidth());
 
 		dev->FillMode(Graph::FILL_SOLID);
-	}
+	}*/
 }
-
-
 
 
 void App::UpdateWndInput()
@@ -460,34 +405,41 @@ void App::UpdateWndInput()
     Core::Point point = wnd->GetMousePosition();
 
     short mouseWheel = wnd->GetMouseWheel();
-    if (mouseWheel != 0) {
-        
-        float next_scale = m_Scale + mouseWheel / 10.0;
 
-        if(src_img_tex != NULL){
-            float s_x = m_Scale * src_img_tex->GetWidth();
-            float s_y = m_Scale * src_img_tex->GetHeight();
+    const bool isOverText = point.GetY() > wnd->GetHeight() - 200;
 
-            float a_x = m_Position.GetX() + m_MouseOffset.GetX();
-            float a_y = m_Position.GetY() + m_MouseOffset.GetY();
+    if (mouseWheel != 0) 
+    {
+        if (isOverText)
+        {
+            Core::Point pp = Core::Point(point.GetX(), point.GetY() - (wnd->GetHeight() - 200));
 
-            float b_x = m_Position.GetX() + m_MouseOffset.GetX() + s_x;
-            float b_y = m_Position.GetY() + m_MouseOffset.GetY() + s_y;
-
-            float m_p_x = wnd->GetMousePosition().GetX();
-            float m_p_y = wnd->GetMousePosition().GetY();
-
-            float alpha_x = (m_p_x - a_x) / (b_x - a_x);
-            float alpha_y = (m_p_y - a_y) / (b_y - a_y);
-
-            float x = m_p_x - src_img_tex->GetWidth() * next_scale * alpha_x;
-            float y = m_p_y - src_img_tex->GetHeight() * next_scale * alpha_y;
-
-            m_Position = Core::Point(x,y);
+            m_TextPosition = updatePositionWithMouseWheel(
+                m_TextPosition,
+                m_TextScale,
+                mouseWheel,
+                wnd->GetWidth(),
+                200,
+                pp,
+                Core::Point(0, 0)
+            );
         }
-
-        m_Scale = next_scale;
-
+        else
+        {
+            if (src_img_tex != NULL)
+                m_Position = updatePositionWithMouseWheel(
+                    m_Position,
+                    m_Scale,
+                    mouseWheel,
+                    src_img_tex->GetWidth(),
+                    src_img_tex->GetHeight(),
+                    point,
+                    Core::Point(0, 0)
+                );
+        }
+       
+       
+        
     }
 
 	if (wnd->GetKeyStatus(Core::KEY_ESCAPE) != Core::BUTTON_STATUS_UP) {
@@ -521,7 +473,11 @@ void App::UpdateWndInput()
 	{
 		if (wasLMBDown)
 		{
-            m_Position = Core::Point(m_Position.GetX()+m_MouseOffset.GetX(), m_Position.GetY() + m_MouseOffset.GetY());
+            if(isOverText)
+                m_TextPosition = Core::Point(m_TextPosition.GetX() + m_MouseOffset.GetX(), m_TextPosition.GetY() + m_MouseOffset.GetY());
+            else
+                m_Position = Core::Point(m_Position.GetX() + m_MouseOffset.GetX(), m_Position.GetY() + m_MouseOffset.GetY());
+
             m_MouseOffset = Core::Point();
 
 			characters_mutex->Lock();
