@@ -1,5 +1,12 @@
 #include "Utils.h"
 
+#include "nckUtils.h"
+
+#include <iostream>
+#include <string>
+#include <initializer_list>
+#include <sstream>
+#include <iomanip>
 
 void drawLine(Graph::Device* dev, float x, float y, float x2, float y2) {
     dev->Begin(Graph::PRIMITIVE_LINES);
@@ -89,3 +96,57 @@ Core::Point updatePositionWithMouseWheel(
 
     return position;
 }
+
+
+/*
+template<typename T>
+std::string formatValue(const std::string& type, T t) {
+    std::stringstream tmp;
+    tmp << t;
+    return tmp.str();
+}
+
+template<typename T, typename... Args>
+std::string LogInt(const std::string& format, T t)
+{
+    size_t b1 = format.find_first_of("{");
+    size_t b2 = format.find_first_of("}");
+
+    if (b1 != -1 && b2 != -1) {
+        std::string sub = format.substr(b1 + 1, b2 - b1 - 1);
+        return format.substr(0, b1) + formatValue(sub, t) + format.substr(b2 + 1);
+    }
+    else
+        return format;
+}
+
+template<typename T, typename... Args>
+std::string LogInt(const std::string& format, T t, Args... args) {
+    std::string ret = format;
+
+    size_t b1 = format.find_first_of("{");
+    size_t b2 = format.find_first_of("}");
+
+    if (b1 != -1 && b2 != -1) {
+        ret = format.substr(0, b1);
+
+        std::string sub = format.substr(b1 + 1, b2 - b1 - 1);
+
+        std::string rest = format.substr(b2 + 1);
+
+        ret += formatValue(sub, t) + LogInt(rest, args...);
+    }
+    return ret;
+}
+
+
+template<typename T, typename... Args>
+void Log(const std::string& format, T t, Args... args)
+{
+    std::string ret = LogInt(format, t, args...);
+    Core::Log::Debug(ret);
+    //std::stringstream ret; 
+    //ret << t << std::endl;
+    // std::cout << ret << std::endl;
+    //std::cout << t << Log(args...) << std::endl;
+}*/

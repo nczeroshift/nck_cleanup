@@ -8,6 +8,7 @@
 #include "nckUtils.h"
 #include "nckException.h"
 #include "nckMathUtils.h"
+#include "nckStringUtils.h"
 
 #include <stdio.h>
 
@@ -251,7 +252,7 @@ void RangeValueButton::Render(WidgetRenderer * wRender)
     if(m_Text.length()>0)
         label = m_Text+": ";
 
-    wRender->RangeValueButton(m_X,m_Y,m_Width,m_Height,label+Math::FloatToString(tempValue,decimalPlaces),m_State,m_RoundMode);
+    wRender->RangeValueButton(m_X,m_Y,m_Width,m_Height,label+Core::StringWithFloat(tempValue,decimalPlaces),m_State,m_RoundMode);
 }
 
 void RangeValueButton::Update(const UserInputState & input, Widget ** focusWidget)

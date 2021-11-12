@@ -103,7 +103,7 @@ public:
     /// @param entry Reference to BXON map with compound scene data.
     /// @param processor Reference to pre/post process methods implementation class.
     /// @throws Exception
-    bool ReadBXON(BXON::Map * entry, Processor * processor = NULL);
+    bool ReadBXON(BXON::Map * entry, Processor * processor = NULL, const std::string& relativePath = "");
 #endif
     
     /// Get datablock reference by type and name.

@@ -1,6 +1,7 @@
 
 #include "App.h"
-
+#include "Utils.h"
+#include "nckStringUtils.h"
 
 void Core::Application_Main(const std::vector<std::string> & CmdLine)
 {
@@ -26,16 +27,16 @@ void Core::Application_Main(const std::vector<std::string> & CmdLine)
 		if (key == "-i") app->SetInputFile(value);
 		if (key == "-o") pOutputImageFile = value;
 		if (key == "-op") pOutputPathFile = value;
-		if (key == "-dm") app->SetDetectMargin(Math::StringToInt(value));
-		if (key == "-om") app->SetOutputMargin(Math::StringToInt(value));
+		if (key == "-dm") app->SetDetectMargin(Core::StringToInt(value));
+		if (key == "-om") app->SetOutputMargin(Core::StringToInt(value));
 		if (key == "-ms") app->SetMonospace("true" == value);
-		if (key == "-sw") app->SetSpaceWidth(Math::StringToInt(value));
-		if (key == "-dfl") pFistLine = Math::StringToInt(value);
-		if (key == "-dlh") pLineHeight = Math::StringToInt(value);
-		if (key == "-ow") pOutputWidth = Math::StringToInt(value);
-		if (key == "-oh") pOutputHeight = Math::StringToInt(value);
-		if (key == "-ch") app->SetCharactersHeight(Math::StringToInt(value));
-		if (key == "-em") app->SetExtraMargin(Math::StringToInt(value));
+		if (key == "-sw") app->SetSpaceWidth(Core::StringToInt(value));
+		if (key == "-dfl") pFistLine = Core::StringToInt(value);
+		if (key == "-dlh") pLineHeight = Core::StringToInt(value);
+		if (key == "-ow") pOutputWidth = Core::StringToInt(value);
+		if (key == "-oh") pOutputHeight = Core::StringToInt(value);
+		if (key == "-ch") app->SetCharactersHeight(Core::StringToInt(value));
+		if (key == "-em") app->SetExtraMargin(Core::StringToInt(value));
 	}
 
 	if (!pOutputImageFile.empty() && !pOutputPathFile.empty())

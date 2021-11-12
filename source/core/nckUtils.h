@@ -8,6 +8,7 @@
 #define NCK_UTILS_H
 
 #include "nckCoreConfig.h"
+
 #include <string>
 #include <vector>
 
@@ -64,24 +65,6 @@ _CORE_BEGIN
 bool IsBaseOfTwo(int number);
 
 
-/* String manipulation functions */
-
-/// Split string in substrings at the tokens occurences(no regex support).
-int StringSplit(const std::string src,
-                const std::string & token,
-                std::vector<std::string> * splits);
-
-/// Remove spaces from left
-std::string ltrim(const std::string & exp);
-
-/// Remove spaces from right
-std::string rtrim(const std::string & exp);
-
-
-/* Other */
-
-/// Print a message when compiled in debug.
-void DebugLog(const std::string & msg);
 
 _CORE_END
 

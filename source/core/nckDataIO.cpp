@@ -181,6 +181,14 @@ DataReader * DataReader::Open(const std::string & filename) {
     return dynamic_cast<DataReader*>(FileReader::Open(filename));
 }
 
+std::string ResolveSubPath(const std::string& fileName) {
+    if (fileName.find_first_of(":") != std::string::npos) {
+        std::string tmp = fileName.substr(fileName.find_first_of(":") + 2, fileName.find_last_of("/"));
+        if(tmp.length() > 4) return tmp;
+    }
+    return "";
+}
+
 FileReader * FileReader::Open(const std::string & filename){
     std::string resolved = ResolveFilename(filename);
     FILE * temp = NULL;

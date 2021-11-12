@@ -39,11 +39,11 @@ void Texture::Read(Core::DataReader *f){
 }
 
 #ifdef NCK_BXON
-void Texture::Read(BXON::Map * entry){
+void Texture::Read(BXON::Map * entry, const std::string & relativePath){
     m_Name = entry->GetString("name");
     m_Filename = entry->GetString("filename");
     try{
-        m_Texture = m_Device->LoadTexture("texture://"+m_Filename);
+        m_Texture = m_Device->LoadTexture("texture://"+ relativePath + m_Filename);
     }
     catch(Core::Exception & ex){
         throw ex;

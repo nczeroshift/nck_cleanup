@@ -90,7 +90,7 @@ DatablockType Compound::GetType(){
 
 #ifdef NCK_BXON
 
-bool Compound::ReadBXON(BXON::Map * entry, Processor * processor){
+bool Compound::ReadBXON(BXON::Map * entry, Processor * processor, const std::string & relativePath){
     
     std::map<std::string,Datablock *> tex_map;
     std::map<std::string,Datablock *> mat_map;
@@ -130,7 +130,7 @@ bool Compound::ReadBXON(BXON::Map * entry, Processor * processor){
             BXON::Map * entry = textures->GetMap(i);
             
             try{
-                tex->Read(entry);
+                tex->Read(entry, relativePath);
                 tex_map.insert(std::pair<std::string, Datablock *>(tex->GetName(), tex));
             }
             catch(Core::Exception & ex){
@@ -154,7 +154,7 @@ bool Compound::ReadBXON(BXON::Map * entry, Processor * processor){
             BXON::Map * entry = materials->GetMap(i);
             
             try{
-                mat->Read(entry, tex_map);
+                mat->Read(entry, tex_map, relativePath);
                 mat_map.insert(std::pair<std::string, Datablock *>(mat->GetName(), mat));
             }
             catch(Core::Exception & ex){
@@ -595,11 +595,12 @@ void Compound_Base::Load(const std::string & filename, Processor * processor)
 {
     Core::DataReader * f = Core::DataReader::Open(filename);
     
-    if(!f){
+    if(!f)
         THROW_EXCEPTION("Unable to open file \"" + filename + "\"");
-    }
+    
     
     if (Core::FindExtension(filename) == "bxon") {
+        
         BXON::ReaderContext * frCtx = NULL; 
         BXON::Object * obj = NULL;
         BXON::Map * map = NULL;
@@ -608,7 +609,7 @@ void Compound_Base::Load(const std::string & filename, Processor * processor)
             obj = BXON::Object::Parse(dynamic_cast<BXON::Context*>(frCtx));
             if (processor) obj = processor->HandleData(obj);
             map = dynamic_cast<BXON::Map*>(obj);
-            ReadBXON(map,processor);
+            ReadBXON(map, processor, Core::ResolveSubPath(filename));
             if (processor) processor->HandleFinish(map, this);
         }
         catch (const Core::Exception & e) {

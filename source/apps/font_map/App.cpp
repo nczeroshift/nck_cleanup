@@ -4,8 +4,8 @@
 #include <algorithm>
 #include "nckGraphicsUtils.h"
 #include "Algorithms.h"
-
-
+#include "nckLog.h"
+#include "nckStringUtils.h"
 
 
 App::App(Core::Window * window) {
@@ -54,15 +54,23 @@ void App::SetSourceImage(const std::string & path) {
 }
 
 void App::DetectRows() {
-	Algorithm_DetectRows(&characters, &lineHeights);
+    lineHeights.clear();
+    
+    if (m_DetectFirstLine != -1 && m_DetectLineHeight != -1) {
+        
+        int i = 0;
+        int currentY = 0;
+        do {
+            currentY = m_DetectFirstLine + m_DetectLineHeight * i;
+            lineHeights.push_back(currentY);
+            i++;
+        }while(currentY < src_img->GetHeight());
 
-	if (m_DetectFirstLine != -1 && m_DetectLineHeight != -1) {
-		int count = lineHeights.size();
-		lineHeights.clear();
-		for (int i = 0; i < count; i++) {
-			lineHeights.push_back(m_DetectFirstLine + m_DetectLineHeight * i);
-		}
-	}
+    }
+    else {
+        Algorithm_DetectRows(&characters, &lineHeights);
+    }
+
 }
 
 void App::SortCharacters() {
@@ -71,11 +79,16 @@ void App::SortCharacters() {
 
 	mapped_characters.clear();
 	ListFor(CharacterBounds, characters, i) {
+        if (mapped_characters.find((char)i->GetCode()) != mapped_characters.end())
+        {
+            Core::Log::Debug("Meh");
+        }
+
 		mapped_characters.insert(std::pair<char, CharacterBounds>((char)i->GetCode(), *i));
 	}
 
 	for (int i = 0; i < lineHeights.size(); i++) {
-		Core::DebugLog("Line (" + Math::IntToString(i) + ") = " + Math::IntToString(lineHeights[i]) + "\n");
+		Core::Log::Debug("Line (" + Core::StringWithInt(i) + ") = " + Core::StringWithInt(lineHeights[i]) + "\n");
 	}
 
 	int max_height = 0;
@@ -85,7 +98,7 @@ void App::SortCharacters() {
 
 	m_CharactersHeight = max_height;
 
-	Core::DebugLog("Characters max height = " + Math::IntToString(max_height) + "\n");
+	Core::Log::Debug("Characters max height = " + Core::StringWithInt(max_height) + "\n");
 
 }
 
@@ -188,13 +201,13 @@ void App::Run() {
 		src_img_tex->SetFilter(Graph::FILTER_MINIFICATION, Graph::FILTER_LINEAR);
         src_img_tex->SetFilter(Graph::FILTER_MIPMAPPING, Graph::FILTER_NEAREST);
 
-		Core::DebugLog("Detecting characters...\n");
+		Core::Log::Debug("Detecting characters...\n");
 		DetectCharactersBounds(src_img, detect_margin, &characters);
 
-		Core::DebugLog("Detection rows...\n");
+		Core::Log::Debug("Detection rows...\n");
 		DetectRows();
 
-		Core::DebugLog("Sorting characters...\n");
+		Core::Log::Debug("Sorting characters...\n");
 		SortCharacters();
 	}
 	catch (const Core::Exception & e) {
@@ -448,7 +461,7 @@ void App::UpdateWndInput()
 
 	if (wnd->GetKeyStatus(Core::KeyboardButton::KEY_Z) == Core::BUTTON_STATUS_UP) {
 		if (wasZDown) {
-            Core::DebugLog("Save image \"" + dst_img_path + "\"\n");
+            Core::Log::Debug("Save image \"" + dst_img_path + "\"\n");
 			SaveOutput();
 		}
 		wasZDown = false;
@@ -458,7 +471,7 @@ void App::UpdateWndInput()
 
 	if (wnd->GetKeyStatus(Core::KeyboardButton::KEY_SPACE) == Core::BUTTON_STATUS_UP) {
 		if (wasESCDown) {
-			Core::DebugLog("Clear Selection\n");
+			Core::Log::Debug("Clear Selection\n");
 			characters_mutex->Lock();
 			selection_a = characters.end();
 			selection_a = characters.end();
@@ -487,7 +500,9 @@ void App::UpdateWndInput()
 			else if (selection_ln != -1 && selection_current != characters.end()) {
 				lineHeights[selection_ln] = selection_current->GetMaxY();
 				selection_current = characters.end();
-				DetectRows();
+				//DetectRows();
+                SortCharacters();
+
 				selection_ln = -1;
 				selection_current_ln = -1;
 			}
@@ -495,11 +510,11 @@ void App::UpdateWndInput()
 			if (selection_current != characters.end()) {
 				if (selection_a == characters.end()) {
 					selection_a = selection_current;
-					Core::DebugLog("Select 1\n");
+					Core::Log::Debug("Select 1\n");
 				}
 				else if (selection_current != selection_a && selection_b == characters.end()) {
 					selection_b = selection_current;
-					Core::DebugLog("Select 2 - Merge\n");
+					Core::Log::Debug("Select 2 - Merge\n");
 
 					selection_a->Expand(*selection_b);
 					characters.erase(selection_b);
@@ -508,7 +523,7 @@ void App::UpdateWndInput()
 					selection_b = characters.end();
 					selection_current = characters.end();
 
-					DetectRows();
+					//DetectRows(false);
 					SortCharacters();
 				}
 			}

@@ -52,7 +52,7 @@ public:
 
         mutex->Lock();
 
-        /*try {
+        try {
 #ifdef RUN_DEMO
             tmp = DemoCreate(RUN_DEMO,wnd, dev);
             tmp->Load();
@@ -69,7 +69,7 @@ public:
             SafeDelete(tmp);
             SafeDelete(dev);
         }
-		*/
+		
 
         mutex->Unlock();
                 
@@ -79,7 +79,7 @@ public:
 			dev->Clear();
 			dev->PresentAll();
             mutex->Lock();
-            /*
+            
             // Dealocate memory for previous demo.
             if(demoDestroy){
                 SafeDelete(demoDestroy);
@@ -104,13 +104,13 @@ public:
                 demoActive->Render();
             else if(demoSelector)
                 demoSelector->Render();
-				*/
+				
             mutex->Unlock();
         }
 
-        //mutex->Lock();
-       // SafeDelete(demoActive);
-        //SafeDelete(demoSelector);
+        mutex->Lock();
+        SafeDelete(demoActive);
+        SafeDelete(demoSelector);
         mutex->Unlock();
 
         //SafeDelete(dev);
@@ -120,7 +120,7 @@ public:
     {
 		if (wnd->GetKeyStatus(Core::KEY_ESCAPE) != Core::BUTTON_STATUS_UP)
 			Teardown();
-		/*
+		
         mutex->Lock();
 
         if(demoActive)
@@ -148,15 +148,14 @@ public:
         }
 
         mutex->Unlock();
-		*/
     }
 
 private:
 
     bool            pressedEscape;
-    Demo            *demoSelector,*demoActive,*demoDestroy,*demoLoad;
-    Core::Mutex        *mutex;
-    Graph::Device    *dev;
+    Demo            * demoSelector, * demoActive, * demoDestroy, * demoLoad;
+    Core::Mutex     *mutex;
+    Graph::Device   *dev;
     Core::Window    *wnd;
 };
 

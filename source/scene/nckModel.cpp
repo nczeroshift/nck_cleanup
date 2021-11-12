@@ -7,6 +7,7 @@
 #include "nckModel.h"
 #include "nckException.h"
 #include "nckUtils.h"
+#include "nckLog.h"
 
 #include "nckMathUtils.h"
 
@@ -405,7 +406,7 @@ Core::QueueBuffer * GetMeshVertexBuffer(Geometry::Mesh * mesh,
                     faces_buffer, &vertex_tangent);
             }
             else {
-                Core::DebugLog("Base layer is not Vec2");
+                Core::Log::Debug("Base layer is not Vec2");
                 useTangent = false;
             }
         }
@@ -445,18 +446,18 @@ Core::QueueBuffer * GetMeshVertexBuffer(Geometry::Mesh * mesh,
             vertexBuffer->Push((uint8_t*)&vertex_tangent[i], sizeof(Math::Vec4));
         
         if(l_UseSkinning){
-            /*Core::DebugLog("ID : " +
-                Math::IntToString((int)vertex_skinning[i].m_Bone_Id[0]) + " " +
-                Math::IntToString((int)vertex_skinning[i].m_Bone_Id[1]) + " " +
-                Math::IntToString((int)vertex_skinning[i].m_Bone_Id[2]) + " " +
-                Math::IntToString((int)vertex_skinning[i].m_Bone_Id[3])
+            /*Core::Log::Debug("ID : " +
+                Core::StringWithInt((int)vertex_skinning[i].m_Bone_Id[0]) + " " +
+                Core::StringWithInt((int)vertex_skinning[i].m_Bone_Id[1]) + " " +
+                Core::StringWithInt((int)vertex_skinning[i].m_Bone_Id[2]) + " " +
+                Core::StringWithInt((int)vertex_skinning[i].m_Bone_Id[3])
             );
 
-            Core::DebugLog(" W : " +
-                Math::FloatToString(vertex_skinning[i].m_Bone_Weight[0],2) + " " +
-                Math::FloatToString(vertex_skinning[i].m_Bone_Weight[1],2) + " " +
-                Math::FloatToString(vertex_skinning[i].m_Bone_Weight[2],2) + " " +
-                Math::FloatToString(vertex_skinning[i].m_Bone_Weight[3],2) +"\n"
+            Core::Log::Debug(" W : " +
+                Core::StringWithFloat(vertex_skinning[i].m_Bone_Weight[0],2) + " " +
+                Core::StringWithFloat(vertex_skinning[i].m_Bone_Weight[1],2) + " " +
+                Core::StringWithFloat(vertex_skinning[i].m_Bone_Weight[2],2) + " " +
+                Core::StringWithFloat(vertex_skinning[i].m_Bone_Weight[3],2) +"\n"
             );*/
 
             vertexBuffer->Push((uint8_t*)&vertex_skinning[i].m_Bone_Id, sizeof(int)*4);

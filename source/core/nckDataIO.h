@@ -29,6 +29,11 @@ std::string FindExtension(const std::string & filename);
  */
 std::string ResolveFilename(const std::string & filename);
 
+/**
+* Resolve sub path to a file.
+*/
+std::string ResolveSubPath(const std::string & fileName);
+
 /** 
  * Get file last modified date
  */

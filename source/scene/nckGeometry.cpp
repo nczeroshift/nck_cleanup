@@ -2,6 +2,7 @@
 #include <math.h>
 #include "nckGeometry.h"
 #include "nckException.h"
+#include "nckLog.h"
 #include <string.h>
 
 _GEOMETRY_BEGIN
@@ -491,7 +492,7 @@ void GetVertexSkinning(Mesh * mesh, const std::map<std::string, int> & boneIds, 
     }
     
     if(!ret){
-        Core::DebugLog("Critical error, some groups may not be assigned to a bone\n");
+        Core::Log::Debug("Critical error, some groups may not be assigned to a bone\n");
     }
 }
 
@@ -716,7 +717,7 @@ void GetFaceBuffer(Mesh * mesh, XTriangleFace ** tf, unsigned int * face_count, 
         else if(size == 4)
             total_tri_faces+=2;
         else {
-            Core::DebugLog("Invalid number of vertices");
+            Core::Log::Debug("Invalid number of vertices");
         }
     }
     

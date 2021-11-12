@@ -250,7 +250,7 @@ void Material::SetUseShadows(bool flag) {
 
 #ifdef NCK_BXON
 
-void Material::Read(BXON::Map * entry, const std::map<std::string, Datablock *> & tMap){
+void Material::Read(BXON::Map * entry, const std::map<std::string, Datablock *> & tMap, const std::string & relativePath){
     m_Name = entry->GetString("name");
     
     m_Diffuse = entry->GetColor3f("diffuse");

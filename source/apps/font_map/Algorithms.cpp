@@ -5,19 +5,22 @@
 #include <map>
 
 #include "nckUtils.h"
+#include "nckLog.h"
 #include "nckMathUtils.h"
+#include "nckStringUtils.h"
 
-static char chars_codes[] = "ABCDEFGHIJKLM"
+static char chars_codes[] = 
+"ABCDEFGHIJKLM"
 "NOPQRSTUVWXY"
 "Z¡…Õ”⁄¿»Ã“Ÿabc"
 "defghijklmnopqr"
 "stuvwxyz·ÈÌÛ˙‡"
-"ËÏÚ˘√¬ Œ’‘€12"
-"34567890?!.,;:-"
-"&[]+*(){}/\\\"'|=_"
-"#$<>@Á«™∫´ª~^`¥";
+"ËÏÚ˘√„¬‚ ÍŒÓ’ı‘Ù"
+"€˚1234567890?!.,;"
+":-&[]+*(){}/\\\"'|="
+"_#$<>@Á«™∫´ª~^`¥";
 
-bool sort_characters(const CharacterBounds & a, const CharacterBounds & b) {
+bool sort_characters_by_x(const CharacterBounds & a, const CharacterBounds & b) {
 	return a.GetMinX() < b.GetMinX();
 }
 
@@ -58,7 +61,7 @@ void Algorithm_DetectRows(std::list<CharacterBounds> * characters, std::vector<i
 		}
 
 		/*if (bottoms[i] - last_y > p50_height) {
-		Core::DebugLog("last line: " + Math::IntToString(last_y) + ", new line at: " + Math::IntToString(bottoms[i]) + "\n");
+		Core::Log::Debug("last line: " + Core::StringWithInt(last_y) + ", new line at: " + Core::StringWithInt(bottoms[i]) + "\n");
 		if ((lineHeights.size() == 0 || lineHeights[lineHeights.size() - 1] < last_y) && last_y > 0)
 		lineHeights.push_back(last_y);
 		if ((lineHeights.size() == 0 || lineHeights[lineHeights.size() - 1] < bottoms[i])&& bottoms[i] > 0)
@@ -79,12 +82,12 @@ void Algorithm_DetectRows(std::list<CharacterBounds> * characters, std::vector<i
 	}*/
 
 	for (int i = 0; i < lineHeights->size(); i++) {
-		Core::DebugLog("Line (" + Math::IntToString(i)  + ") = " + Math::IntToString((*lineHeights)[i])+ " alt = " + Math::IntToString(22 + 28 * i)+"\n");
+		Core::Log::Debug("Line (" + Core::StringWithInt(i)  + ") = " + Core::StringWithInt((*lineHeights)[i])+ " alt = " + Core::StringWithInt(22 + 28 * i)+"\n");
 	}
 }
 
 void Algorithm_SortAndFix(std::list<CharacterBounds> * characters, std::vector<int> lineHeights) {
-	const int y_margin = 5;
+	const int y_margin = 12;
 
 	std::map<int, std::list<CharacterBounds>> tmpMap;
 
@@ -96,40 +99,57 @@ void Algorithm_SortAndFix(std::list<CharacterBounds> * characters, std::vector<i
 		int min_y = i->GetMinY();
 		int max_y = i->GetMaxY();
 
+        bool didAdd = false;
+
 		int last_y = 0;
 		for (int j = 0; j < lineHeights.size(); j++) {
-			int y = lineHeights[j];
+			int line_y = lineHeights[j];
 
-			if (min_y - y_margin < y && max_y + y_margin > y) {
-				i->SetLineHeight(y);
-				(tmpMap.find(y)->second).push_back(*i);
+			if (min_y - y_margin < line_y && max_y + y_margin > line_y) {
+				i->SetLineHeight(line_y);
+				(tmpMap.find(line_y)->second).push_back(*i);
+                didAdd = true;
 				break;
 			}
 
-			if (y > max_y) {
-				i->SetLineHeight(y);
-				(tmpMap.find(y)->second).push_back(*i);
+			if (line_y > max_y) {
+				i->SetLineHeight(line_y);
+				(tmpMap.find(line_y)->second).push_back(*i);
+                didAdd = true;
 				break;
 			}
 
-			last_y = y;
+            if (min_y - line_y  < y_margin) {
+                i->SetLineHeight(line_y);
+                (tmpMap.find(line_y)->second).push_back(*i);
+                didAdd = true;
+                break;
+            }
+
+			last_y = line_y;
 		}
+
+        if (!didAdd) {
+            Core::Log::Debug("!");
+        }
+
 	}
 
 	std::list<CharacterBounds> replace;
 
 	for (int i = 0; i < lineHeights.size(); i++) {
 		std::list<CharacterBounds> tmpList = tmpMap.find(lineHeights[i])->second;
-		tmpList.sort(sort_characters);
+		tmpList.sort(sort_characters_by_x);
 		replace.insert(replace.end(), tmpList.begin(), tmpList.end());
 	}
 
 	int count = 0;
 	ListFor(CharacterBounds, replace, i) {
-		if (count >= sizeof(chars_codes))
+		if (count >= sizeof(chars_codes)){
 			break;
+        }
 
-		i->SetCode(chars_codes[count]);
+	    i->SetCode(chars_codes[count]);
 		count++;
 	}
 
@@ -154,7 +174,7 @@ int Algorithm_GetMaxCharactersWidth(std::list<CharacterBounds> * characters) {
 		i->SetMargin(left_margin, right_margin);
 	}*/
 
-	//Core::DebugLog("Max char width = " + Math::IntToString(max_width)+"\n");
+	//Core::Log::Debug("Max char width = " + Core::StringWithInt(max_width)+"\n");
 
 	return max_width;
 }

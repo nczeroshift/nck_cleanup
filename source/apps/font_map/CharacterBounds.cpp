@@ -3,6 +3,7 @@
 #include "nckUtils.h"
 #include "nckException.h"
 #include "nckMathUtils.h"
+#include "nckStringUtils.h"
 
 CharacterBounds::CharacterBounds() {
 	min_x = min_y = max_x = max_y = 0;
@@ -124,15 +125,15 @@ void SaveCharactersMap(int dst_img_width,
 		THROW_EXCEPTION("Unable to open output map");
 
 	std::string params = "version,2\n";
-	params += "size," + Math::IntToString(dst_img_width) + "," + Math::IntToString(dst_img_height) + "\n";
+	params += "size," + Core::StringWithInt(dst_img_width) + "," + Core::StringWithInt(dst_img_height) + "\n";
 
 	if (monoSpaced) 
 		params += "monospaced,true\n";
 
-	params += "height," + Math::IntToString(charHeight) + "\n";
-	params += "space," + Math::IntToString(spaceWidth)+"\n";
-	params += "tab," + Math::IntToString(spaceWidth * 4) + "\n";
-	params += "margin," + Math::IntToString(margin / 2) + "\n";
+	params += "height," + Core::StringWithInt(charHeight) + "\n";
+	params += "space," + Core::StringWithInt(spaceWidth)+"\n";
+	params += "tab," + Core::StringWithInt(spaceWidth * 4) + "\n";
+	params += "margin," + Core::StringWithInt(margin / 2) + "\n";
 	params += "cmap\n";
 
 	fw->Write((uint8_t*)params.c_str(), params.length());
@@ -142,11 +143,11 @@ void SaveCharactersMap(int dst_img_width,
 		std::string line = "";
 		char buffer[] = { (char)i->GetCode() ,'\0' };
 
-		line += Math::IntToString(i->GetMinX()) + "," +
-			Math::IntToString(i->GetMinY()) + "," +
-			Math::IntToString(i->GetMaxX()) + "," +
-			Math::IntToString(i->GetMaxY()) + "," +
-			Math::IntToString(i->GetLineHeight()) + "," +
+		line += Core::StringWithInt(i->GetMinX()) + "," +
+			Core::StringWithInt(i->GetMinY()) + "," +
+			Core::StringWithInt(i->GetMaxX()) + "," +
+			Core::StringWithInt(i->GetMaxY()) + "," +
+			Core::StringWithInt(i->GetLineHeight()) + "," +
 			std::string(buffer) +
 			"\n";
 

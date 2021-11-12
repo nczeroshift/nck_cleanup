@@ -20,28 +20,28 @@
 _CORE_BEGIN
 
 
-Window *CreateWindow(const std::string & Title, unsigned int Width, unsigned int Height, uint32_t flags)
+Window *CreateWindow(const std::string & title, unsigned int width, unsigned int height, uint32_t flags)
 {
 #if defined(NCK_WINDOWS)
-    return (Window*)CreateWindow_Win32(Title,Width,Height, flags);
+    return (Window*)CreateWindow_Win32(title, width, height, flags);
 #elif defined(NCK_LINUX)
-    return (Window*)CreateWindow_Linux(Title,Width,Height,fullscreen);
+    return (Window*)CreateWindow_Linux(title, width, height, fullscreen);
 #elif defined(NCK_MACOSX)
-    return CreateWindow_MacOSX(Title, Width, Height, fullscreen);
+    return CreateWindow_MacOSX(title, width, height, fullscreen);
 #endif
 }
 
 #if defined(NCK_WINDOWS)
-void Application_Main_Win32(const std::vector<std::string> & CmdLine){
-    Application_Main(CmdLine);
+void Application_Main_Win32(const std::vector<std::string> & cmdLine){
+    Application_Main(cmdLine);
 }
 #elif defined(NCK_LINUX)
-void Application_Main_Linux(const std::vector<std::string> & CmdLine){
-    Application_Main(CmdLine);
+void Application_Main_Linux(const std::vector<std::string> & cmdLine){
+    Application_Main(cmdLine);
 }
 #elif defined(NCK_MACOSX)
-void Application_Main_MacOSX(const std::vector<std::string> & CmdLine){
-    Application_Main(CmdLine);
+void Application_Main_MacOSX(const std::vector<std::string> & cmdLine){
+    Application_Main(cmdLine);
 }
 #endif    
 

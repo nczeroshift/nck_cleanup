@@ -159,7 +159,7 @@ void AnimationGraph::ComputeBlendMatrix(){
             if(!Math::Invert(mat,&res)){
                 // Unable to invert matrix, probably bad keyframe values, use the standart bezier coeffs (l_standart)
                 // THROW_EXCEPTION("Bad matrix inversion");
-                Core::DebugLog("Bad matrix inversion");
+                Core::Log::Debug("Bad matrix inversion");
             }
             
             m_BlendMatrix.push_back(res);

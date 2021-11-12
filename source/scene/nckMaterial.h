@@ -49,7 +49,7 @@ public:
     void Read(Core::DataReader *f, std::vector<Texture *> *tex_vec);
     
 #ifdef NCK_BXON
-    void Read(BXON::Map * entry, const std::map<std::string, Datablock *> & tMap);
+    void Read(BXON::Map * entry, const std::map<std::string, Datablock *> & tMap, const std::string & relativePath);
 #endif
     
     /// Enable material.

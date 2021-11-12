@@ -9,6 +9,7 @@
 #include "nckUtils.h"
 #include "nckObject.h"
 #include "nckException.h"
+#include "nckStringUtils.h"
 
 _SCENE_BEGIN
 
@@ -69,7 +70,7 @@ std::string MaterialToProgram::generateVSH(Scene::Material * mat) {
 
     if (m_armature_support) {
         if (m_max_armature_bones != 0)
-            src += "#define BONES_MAX " + Math::IntToString(m_max_armature_bones) + "\n";
+            src += "#define BONES_MAX " + Core::StringWithInt(m_max_armature_bones) + "\n";
         src += "#include \"armature.cpp\"\n";
     }
 
@@ -93,8 +94,8 @@ std::string MaterialToProgram::generateVSH(Scene::Material * mat) {
         src += "\tvec3 aP = P.xyz;\n";
         int sRegId = uvReg.size() + (hasBumpmap ? 1 : 0) + 1;
         // Skinning is placed after UV coordinate registers and bumpmapping Tangent vector.
-        src += "\tarmature_transform(gl_MultiTexCoord"+Math::IntToString(sRegId)+
-            ".xyzw,gl_MultiTexCoord" + Math::IntToString(sRegId+2) + ".xyzw,aP,N);\n";
+        src += "\tarmature_transform(gl_MultiTexCoord"+Core::StringWithInt(sRegId)+
+            ".xyzw,gl_MultiTexCoord" + Core::StringWithInt(sRegId+2) + ".xyzw,aP,N);\n";
         src += "\tP = vec4(aP,1.0);\n";
     }
 
@@ -109,7 +110,7 @@ std::string MaterialToProgram::generateVSH(Scene::Material * mat) {
 
     if (hasBumpmap) {
         // Bumpmap needs at least one UV texture, which means it starts on uv register 1
-        src += "\tvec4 T = gl_MultiTexCoord"+Math::IntToString(MIN(uvReg.size(),1))+".xyzw;\n"
+        src += "\tvec4 T = gl_MultiTexCoord"+Core::StringWithInt(MIN(uvReg.size(),1))+".xyzw;\n"
             "\tvec3 T_MV = normalize(gl_NormalMatrix * T.xyz);\n"
             "\tbumpmap_compute(P_MV,N_MV,vec4(T_MV,T.w));\n";
     }
@@ -213,13 +214,13 @@ std::string MaterialToProgram::generateFSH(Scene::Material * mat) {
     MapFor(int, Scene::TextureLayer*, layers, i) {
         Graph::Texture * tex = i->second->GetTexture()->GetTexture();
         if (tex->GetType() == Graph::TEXTURE_2D) {
-            src += "uniform sampler2D gphTexture" + Math::IntToString(i->first) + ";\n";
+            src += "uniform sampler2D gphTexture" + Core::StringWithInt(i->first) + ";\n";
         }
         else if (tex->GetType() == Graph::TEXTURE_3D) {
-            src += "uniform sampler3D gphTexture" + Math::IntToString(i->first) + ";\n";
+            src += "uniform sampler3D gphTexture" + Core::StringWithInt(i->first) + ";\n";
         }
         else if (tex->GetType() == Graph::TEXTURE_CUBEMAP) {
-            src += "uniform samplerCube gphTexture" + Math::IntToString(i->first) + ";\n";
+            src += "uniform samplerCube gphTexture" + Core::StringWithInt(i->first) + ";\n";
         }
     }
 
@@ -265,22 +266,22 @@ std::string MaterialToProgram::generateFSH(Scene::Material * mat) {
                 Scene::Object * obj = tl->GetMappingObject();
                 if ((obj->GetScale() - Math::Vec3(1.0, 1.0, 1.0)).Length() > 0.01) {
                     if (tex->GetType() == Graph::TEXTURE_2D)
-                        tString += "* vec2(" + Math::FloatToString(obj->GetScale().GetX(), 2) + "," + Math::FloatToString(obj->GetScale().GetY(), 2) + ")";
+                        tString += "* vec2(" + Core::StringWithFloat(obj->GetScale().GetX(), 2) + "," + Core::StringWithFloat(obj->GetScale().GetY(), 2) + ")";
                     else
-                        tString += "* vec3(" + Math::FloatToString(obj->GetScale().GetX(), 2) + "," + Math::FloatToString(obj->GetScale().GetY(), 2) + "," + Math::FloatToString(obj->GetScale().GetZ(), 2) + ")";
+                        tString += "* vec3(" + Core::StringWithFloat(obj->GetScale().GetX(), 2) + "," + Core::StringWithFloat(obj->GetScale().GetY(), 2) + "," + Core::StringWithFloat(obj->GetScale().GetZ(), 2) + ")";
                 }
                 if ((obj->GetPosition() - Math::Vec3(0.0, 0.0, 0.0)).Length() > 0.001) {
                     if (tex->GetType() == Graph::TEXTURE_2D)
-                        tString += "+ vec2(" + Math::FloatToString(obj->GetPosition().GetX(), 2) + "," + Math::FloatToString(obj->GetPosition().GetY(), 2) + ")";
+                        tString += "+ vec2(" + Core::StringWithFloat(obj->GetPosition().GetX(), 2) + "," + Core::StringWithFloat(obj->GetPosition().GetY(), 2) + ")";
                     else
-                        tString += "+ vec3(" + Math::FloatToString(obj->GetPosition().GetX(), 2) + "," + Math::FloatToString(obj->GetPosition().GetY(), 2) + "," + Math::FloatToString(obj->GetPosition().GetZ(), 2) + ")";
+                        tString += "+ vec3(" + Core::StringWithFloat(obj->GetPosition().GetX(), 2) + "," + Core::StringWithFloat(obj->GetPosition().GetY(), 2) + "," + Core::StringWithFloat(obj->GetPosition().GetZ(), 2) + ")";
                 }
             }
 
             // Use textures for shadows.
             if (m_Shadows && (tl->GetFactorFlag() & FACTOR_SHADOW) != 0) 
             {
-                src += "\tshadowMask *= shadow_cast(gphTexture" + Math::IntToString(i->first) + ");\n";
+                src += "\tshadowMask *= shadow_cast(gphTexture" + Core::StringWithInt(i->first) + ");\n";
                 continue;
             }
             
@@ -288,32 +289,32 @@ std::string MaterialToProgram::generateFSH(Scene::Material * mat) {
             src += "\t{\n";
                         
             if (tex->GetType() == Graph::TEXTURE_2D) {
-                src += "\t\tvec4 tex = texture2D(gphTexture" + Math::IntToString(i->first) + ",gl_TexCoord["+ uvRegIdStr +"].xy" + tString + ");\n";
+                src += "\t\tvec4 tex = texture2D(gphTexture" + Core::StringWithInt(i->first) + ",gl_TexCoord["+ uvRegIdStr +"].xy" + tString + ");\n";
             }
             else if (tex->GetType() == Graph::TEXTURE_3D) {
-                src += "\t\tvec4 tex = texture3D(gphTexture" + Math::IntToString(i->first) + ",gl_TexCoord["+ uvRegIdStr +"].xyz" + tString + ");\n";
+                src += "\t\tvec4 tex = texture3D(gphTexture" + Core::StringWithInt(i->first) + ",gl_TexCoord["+ uvRegIdStr +"].xyz" + tString + ");\n";
             }
             else if (tex->GetType() == Graph::TEXTURE_CUBEMAP) {
-                src += "\t\tvec4 tex = textureCube(gphTexture" + Math::IntToString(i->first) + ",gl_TexCoord["+ uvRegIdStr +"].xyz" + tString + ");\n";
+                src += "\t\tvec4 tex = textureCube(gphTexture" + Core::StringWithInt(i->first) + ",gl_TexCoord["+ uvRegIdStr +"].xyz" + tString + ");\n";
             }
 
             if ((tl->GetFactorFlag() & Scene::FACTOR_DIFFUSE_COLOR) != 0) {
                 if (tl->GetBlendMode() == TEX_BLEND_MODE_MULTIPLY)
-                    src += "\t\tcolDiff = colDiff * mix(vec3(1.0),tex.xyz,"+ Math::FloatToString(tl->GetFactorDiffuseColor(), 2) + ");\n";
+                    src += "\t\tcolDiff = colDiff * mix(vec3(1.0),tex.xyz,"+ Core::StringWithFloat(tl->GetFactorDiffuseColor(), 2) + ");\n";
                 else
-                    src += "\t\tcolDiff = mix(colDiff,tex.xyz," + Math::FloatToString(tl->GetFactorDiffuseColor(), 2) + ");\n";
+                    src += "\t\tcolDiff = mix(colDiff,tex.xyz," + Core::StringWithFloat(tl->GetFactorDiffuseColor(), 2) + ");\n";
             }
 
             if ((tl->GetFactorFlag() & Scene::FACTOR_SPECULAR_COLOR) != 0) {
-                src += "\t\tcolSpec = mix(colSpec,tex.xyz," + Math::FloatToString(tl->GetFactorSpecularColor(), 2) + ");\n";
+                src += "\t\tcolSpec = mix(colSpec,tex.xyz," + Core::StringWithFloat(tl->GetFactorSpecularColor(), 2) + ");\n";
             }
 
             if ((tl->GetFactorFlag() & Scene::FACTOR_ALPHA) != 0) {
-                src += "\t\talpha = mix(alpha,tex.a," + Math::FloatToString(tl->GetFactorAlpha(), 2) + ");\n";
+                src += "\t\talpha = mix(alpha,tex.a," + Core::StringWithFloat(tl->GetFactorAlpha(), 2) + ");\n";
             }
 
             if ((tl->GetFactorFlag() & Scene::FACTOR_NORMAL) != 0) {
-                src += "\t\tN = bumpmap_mix_sample(N,tex.xyz," + Math::FloatToString(tl->GetFactorNormal(), 2) + ");\n";
+                src += "\t\tN = bumpmap_mix_sample(N,tex.xyz," + Core::StringWithFloat(tl->GetFactorNormal(), 2) + ");\n";
             }
 
             src += "\t}\n";

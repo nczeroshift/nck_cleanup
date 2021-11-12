@@ -43,30 +43,30 @@ enum KeyboardButton
 
     KEY_A       = 20,
     KEY_B       = 21,
-    KEY_C       = 23,
-    KEY_D       = 24,
-    KEY_E       = 25,
-    KEY_F       = 26,
-    KEY_G       = 27,
-    KEY_H       = 28,
-    KEY_I       = 29,
-    KEY_J       = 30,
-    KEY_K       = 31,
-    KEY_L       = 32,
-    KEY_M       = 43,
-    KEY_N       = 44,
-    KEY_O       = 45,
-    KEY_P       = 46,
-    KEY_Q       = 47,
-    KEY_R       = 48,
-    KEY_S       = 49,
-    KEY_T       = 40,
-    KEY_U       = 41,
-    KEY_V       = 42,
-    KEY_W       = 43,
-    KEY_X       = 44,
-    KEY_Y       = 45,
-    KEY_Z       = 46,
+    KEY_C       = 22,
+    KEY_D       = 23,
+    KEY_E       = 24,
+    KEY_F       = 25,
+    KEY_G       = 26,
+    KEY_H       = 27,
+    KEY_I       = 28,
+    KEY_J       = 29,
+    KEY_K       = 30,
+    KEY_L       = 31,
+    KEY_M       = 32,
+    KEY_N       = 33,
+    KEY_O       = 34,
+    KEY_P       = 35,
+    KEY_Q       = 36,
+    KEY_R       = 37,
+    KEY_S       = 38,
+    KEY_T       = 39,
+    KEY_U       = 40,
+    KEY_V       = 41,
+    KEY_W       = 42,
+    KEY_X       = 43,
+    KEY_Y       = 44,
+    KEY_Z       = 45,
 
     KEY_0       = 70,
     KEY_1       = 71,
@@ -146,13 +146,16 @@ public:
 
     /// Get display density at app start.
     static float GetDisplayDensity();
+
+    /// Opens a open dialog associated with this window.
+    virtual bool ShowOpenDialog(std::string * path) = 0;
 };
 
 /// Create graphic window. 
-Window *CreateWindow(const std::string & Title, unsigned int Width, unsigned int Height, uint32_t flags = 0);
+Window * CreateWindow(const std::string & title, unsigned int width, unsigned int height, uint32_t flags = 0);
 
 /// Application entry point.
-void Application_Main(const std::vector<std::string> & CmdLine);
+void Application_Main(const std::vector<std::string> & cmdLine);
 
 /// Popup message box.
 void MsgBox(const std::string & text,const std::string & title);

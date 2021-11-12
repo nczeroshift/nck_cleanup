@@ -16,4 +16,6 @@ Core::Point updatePositionWithMouseWheel(
     Core::Point mousePosition,
     Core::Point mouseOffset);
 
+
+
 #endif

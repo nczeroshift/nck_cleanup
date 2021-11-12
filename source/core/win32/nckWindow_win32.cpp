@@ -10,6 +10,9 @@
 
 #include "../nckException.h"
 #include "../nckUtils.h"
+#include "../nckLog.h"
+#include "../nckStringUtils.h"
+
 #include "resource.h"
 #include <list>
 #include <map>
@@ -91,7 +94,7 @@ LRESULT WINAPI WndProc( HWND hWnd, UINT uMsg, WPARAM wParam, LPARAM lParam )
     p_WindowMutex->Unlock();
 
     if(active_wnd == NULL){
-        Core::DebugLog("Window handle not found!\n");
+        Core::Log::Debug("Window handle not found!\n");
         return DefWindowProc( hWnd, uMsg, wParam, lParam );
     }
 
@@ -347,7 +350,7 @@ Window_Win32 *CreateWindow_Win32(const std::string & Title, unsigned int Width, 
     if(!RegisterClassEx( &m_Window->m_Class ))
     {
         DWORD error_id = GetLastError();
-        Core::DebugLog("Warning at CreateWindow_Win32(), window class already created.\n");
+        Core::Log::Debug("Warning at CreateWindow_Win32(), window class already created.\n");
     }
 
     RECT rc = { 0, 0, (long)Width, (long)Height };
@@ -444,11 +447,13 @@ float Window::GetDisplayDensity() {
     return p_DisplayDensity;
 }
 
-_CORE_END
 
-void showOpenDialog() {
+bool Window_Win32::ShowOpenDialog(std::string* path) {
+    bool success = false;
+
     HRESULT hr = CoInitializeEx(NULL, COINIT_APARTMENTTHREADED |
         COINIT_DISABLE_OLE1DDE);
+
     if (SUCCEEDED(hr))
     {
         IFileOpenDialog* pFileOpen;
@@ -460,7 +465,7 @@ void showOpenDialog() {
         if (SUCCEEDED(hr))
         {
             // Show the Open dialog box.
-            hr = pFileOpen->Show(NULL);
+            hr = pFileOpen->Show(m_Handle);
 
             // Get the file name from the dialog box.
             if (SUCCEEDED(hr))
@@ -475,9 +480,12 @@ void showOpenDialog() {
                     const wchar_t* wbuf = pszFilePath;
                     int len = WideCharToMultiByte(CP_UTF8, 0, wbuf, -1, 0, 0, 0, 0);
 
-                    std::string buf(len, 0);
+                    // std::string buf(len, 0);
+                    path->reserve(len);
 
-                    WideCharToMultiByte(CP_UTF8, 0, wbuf, -1, &buf[0], len, 0, 0);
+                    WideCharToMultiByte(CP_UTF8, 0, wbuf, -1, &(*path)[0], len, 0, 0);
+
+                    success = true;
 
                     // Display the file name to the user.
                     if (SUCCEEDED(hr))
@@ -492,7 +500,12 @@ void showOpenDialog() {
         }
         CoUninitialize();
     }
+
+    return false;
 }
+
+_CORE_END
+
 
 int WINAPI WinMain( HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine, int nCmdShow)
 {

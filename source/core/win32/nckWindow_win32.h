@@ -41,6 +41,7 @@ public:
     ButtonStatus GetKeyCodeStatus(int key);
     ButtonStatus GetMouseButtonStatus(MouseButton code);
     short GetMouseWheel();
+    bool ShowOpenDialog(std::string* path);
 
     short           m_MouseWheel;
     Core::Mutex     *m_Mutex;

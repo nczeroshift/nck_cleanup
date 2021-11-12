@@ -44,7 +44,7 @@ public:
     void Read(Core::DataReader *f);
     
 #ifdef NCK_BXON
-    void Read(BXON::Map * entry);
+    void Read(BXON::Map * entry, const std::string & relativePath = "");
 #endif
     
     /// Assign the texture to a sampler.

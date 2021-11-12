@@ -28,17 +28,6 @@ float Max(float a,float b);
 /// Get the minimum value between two.
 float Min(float a,float b);
 
-/// Convert single precision float to string.
-std::string FloatToString(float value);
-
-/// Convert single precision float with a specific decimal precision to string.
-std::string FloatToString(float value, int decimal_precision);
-
-/// Convert integer to string.
-std::string IntToString(int value);
-std::string IntToString(int value, int leading);
-std::string TimeToString(int64_t v);
-int StringToInt(const std::string & value);
 
 _MATH_END
 
