@@ -149,20 +149,24 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClInclude Include="..\..\..\source\apps\font_map_tool\Algorithms.h" />
-    <ClInclude Include="..\..\..\source\apps\font_map_tool\App.h" />
-    <ClInclude Include="..\..\..\source\apps\font_map_tool\CharacterBounds.h" />
-    <ClInclude Include="..\..\..\source\apps\font_map_tool\Header.h" />
-    <ClInclude Include="..\..\..\source\apps\font_map_tool\Utils.h" />
+    <ClInclude Include="..\..\..\source\apps\font_map\Algorithms.h" />
+    <ClInclude Include="..\..\..\source\apps\font_map\App.h" />
+    <ClInclude Include="..\..\..\source\apps\font_map\CharacterBounds.h" />
+    <ClInclude Include="..\..\..\source\apps\font_map\Header.h" />
+    <ClInclude Include="..\..\..\source\apps\font_map\Utils.h" />
+    <ClInclude Include="..\..\..\source\bxon\bxon.hpp" />
+    <ClInclude Include="..\..\..\source\bxon\bxonDataIO.h" />
     <ClInclude Include="..\..\..\source\core\nckChronometer.h" />
     <ClInclude Include="..\..\..\source\core\nckCoreConfig.h" />
     <ClInclude Include="..\..\..\source\core\nckDataIO.h" />
     <ClInclude Include="..\..\..\source\core\nckDate.h" />
     <ClInclude Include="..\..\..\source\core\nckException.h" />
     <ClInclude Include="..\..\..\source\core\nckImage.h" />
+    <ClInclude Include="..\..\..\source\core\nckLog.h" />
     <ClInclude Include="..\..\..\source\core\nckPoint.h" />
     <ClInclude Include="..\..\..\source\core\nckQueueBuffer.h" />
     <ClInclude Include="..\..\..\source\core\nckSharedPtr.h" />
+    <ClInclude Include="..\..\..\source\core\nckStringUtils.h" />
     <ClInclude Include="..\..\..\source\core\nckThread.h" />
     <ClInclude Include="..\..\..\source\core\nckUtils.h" />
     <ClInclude Include="..\..\..\source\core\nckWindow.h" />
@@ -203,6 +207,24 @@
     <ClInclude Include="..\..\..\source\math\nckVec2.h" />
     <ClInclude Include="..\..\..\source\math\nckVec3.h" />
     <ClInclude Include="..\..\..\source\math\nckVec4.h" />
+    <ClInclude Include="..\..\..\source\scene\nckAnimation.h" />
+    <ClInclude Include="..\..\..\source\scene\nckArmature.h" />
+    <ClInclude Include="..\..\..\source\scene\nckCamera.h" />
+    <ClInclude Include="..\..\..\source\scene\nckCompound.h" />
+    <ClInclude Include="..\..\..\source\scene\nckCurve.h" />
+    <ClInclude Include="..\..\..\source\scene\nckDatablock.h" />
+    <ClInclude Include="..\..\..\source\scene\nckGeometry.h" />
+    <ClInclude Include="..\..\..\source\scene\nckLamp.h" />
+    <ClInclude Include="..\..\..\source\scene\nckMarchingCubes.h" />
+    <ClInclude Include="..\..\..\source\scene\nckMarchingCubesTable.h" />
+    <ClInclude Include="..\..\..\source\scene\nckMaterial.h" />
+    <ClInclude Include="..\..\..\source\scene\nckMaterialToProgram.h" />
+    <ClInclude Include="..\..\..\source\scene\nckModel.h" />
+    <ClInclude Include="..\..\..\source\scene\nckObject.h" />
+    <ClInclude Include="..\..\..\source\scene\nckProcessor.h" />
+    <ClInclude Include="..\..\..\source\scene\nckRenderPass.h" />
+    <ClInclude Include="..\..\..\source\scene\nckSceneConfig.h" />
+    <ClInclude Include="..\..\..\source\scene\nckTexture.h" />
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="..\..\..\source\core\win32\resources.rc" />
@@ -211,18 +233,22 @@
     <Image Include="..\..\..\source\core\win32\appicon.ico" />
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="..\..\..\source\apps\font_map_tool\Algorithms.cpp" />
-    <ClCompile Include="..\..\..\source\apps\font_map_tool\App.cpp" />
-    <ClCompile Include="..\..\..\source\apps\font_map_tool\CharacterBounds.cpp" />
-    <ClCompile Include="..\..\..\source\apps\font_map_tool\main.cpp" />
-    <ClCompile Include="..\..\..\source\apps\font_map_tool\Utils.cpp" />
+    <ClCompile Include="..\..\..\source\apps\font_map\Algorithms.cpp" />
+    <ClCompile Include="..\..\..\source\apps\font_map\App.cpp" />
+    <ClCompile Include="..\..\..\source\apps\font_map\CharacterBounds.cpp" />
+    <ClCompile Include="..\..\..\source\apps\font_map\main.cpp" />
+    <ClCompile Include="..\..\..\source\apps\font_map\Utils.cpp" />
+    <ClCompile Include="..\..\..\source\bxon\bxon.cpp" />
+    <ClCompile Include="..\..\..\source\bxon\bxonDataIO.cpp" />
     <ClCompile Include="..\..\..\source\core\nckChronometer.cpp" />
     <ClCompile Include="..\..\..\source\core\nckDataIO.cpp" />
     <ClCompile Include="..\..\..\source\core\nckDate.cpp" />
     <ClCompile Include="..\..\..\source\core\nckException.cpp" />
     <ClCompile Include="..\..\..\source\core\nckImage.cpp" />
+    <ClCompile Include="..\..\..\source\core\nckLog.cpp" />
     <ClCompile Include="..\..\..\source\core\nckPoint.cpp" />
     <ClCompile Include="..\..\..\source\core\nckQueueBuffer.cpp" />
+    <ClCompile Include="..\..\..\source\core\nckStringUtils.cpp" />
     <ClCompile Include="..\..\..\source\core\nckThread.cpp" />
     <ClCompile Include="..\..\..\source\core\nckUtils.cpp" />
     <ClCompile Include="..\..\..\source\core\nckWindow.cpp" />
@@ -259,6 +285,21 @@
     <ClCompile Include="..\..\..\source\math\nckVec2.cpp" />
     <ClCompile Include="..\..\..\source\math\nckVec3.cpp" />
     <ClCompile Include="..\..\..\source\math\nckVec4.cpp" />
+    <ClCompile Include="..\..\..\source\scene\nckAnimation.cpp" />
+    <ClCompile Include="..\..\..\source\scene\nckArmature.cpp" />
+    <ClCompile Include="..\..\..\source\scene\nckCamera.cpp" />
+    <ClCompile Include="..\..\..\source\scene\nckCompound.cpp" />
+    <ClCompile Include="..\..\..\source\scene\nckCurve.cpp" />
+    <ClCompile Include="..\..\..\source\scene\nckDatablock.cpp" />
+    <ClCompile Include="..\..\..\source\scene\nckGeometry.cpp" />
+    <ClCompile Include="..\..\..\source\scene\nckLamp.cpp" />
+    <ClCompile Include="..\..\..\source\scene\nckMarchingCubes.cpp" />
+    <ClCompile Include="..\..\..\source\scene\nckMaterial.cpp" />
+    <ClCompile Include="..\..\..\source\scene\nckMaterialToProgram.cpp" />
+    <ClCompile Include="..\..\..\source\scene\nckModel.cpp" />
+    <ClCompile Include="..\..\..\source\scene\nckObject.cpp" />
+    <ClCompile Include="..\..\..\source\scene\nckRenderPass.cpp" />
+    <ClCompile Include="..\..\..\source\scene\nckTexture.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
